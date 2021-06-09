@@ -7,26 +7,26 @@
 
 In the context of numerical computation, data is often represented as multi-dimensional arrays. To speed up arithmetical operations and minimize storage it can be advantageous to flatten multi-dimensional arrays (see [Numerical computation](https://dart.dev/articles/archive/numeric-computation)).
 
-The example below shows the elements of a 2-dimensional array. Storing the 2D array as a 1D array is a way of avoiding the overhead of
-working with a list of lists. In this example, the elements are stored using a row
-major layout.
+The example below shows the elements of a 2-dimensional array stored as a 1-dimensional
+array using a row major layout.
 
 ![Console Output](https://github.com/simphotonics/stride/blob/main/images/array.svg?sanitize=true)
 
-To access the element `array2D[i, j]` one needs to
+To access the element `array2D[i][j]` one needs to
 retrieve `array1D[nCols * i + j]`, where `nCols` is the number of
 columns.
 
-Since the 1D array is arranged in a row major format it is an easy task to access the elements of the row with index `i`:
+Since the 1D array is arranged in a row major format it
+is an easy task to access the elements of the row with index `i`:
 `row_i = array1D.sublist(i * nCols, i * nCols + nCols)`. All we need to do is
 skip `i * nCols` elements and then collect the next `nCols` elements.
 
 In order to access the elements of the column with index `j`, one could use
-a `StrideIterable`:
-`column_j = StrideIterable(array1D, nCols, j)`. The iteration starts at the offset
-`j` and the uses the stride `nCols` to advance to the next element. Looking at the
+a [`StrideIterable`][StrideIterable]:
+`column_j = StrideIterable(array1D, nCols, j)`. The iterable starts at the offset
+`j` and uses the stride `nCols` to advance to the next element. Looking at the
 figure above one can see that the iterable contains precisely the elements of the column with
-index `j`.
+index `j`. 
 
 
 ## Usage

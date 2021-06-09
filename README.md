@@ -25,16 +25,20 @@ In order to access the elements of the column with index `j`, one could use
 a [`StrideIterable`][StrideIterable]:
 `column_j = StrideIterable(array1D, nCols, j)`. The iterable starts at the offset
 `j` and uses the stride `nCols` to advance to the next element. Looking at the
-figure above one can see that the iterable contains precisely the elements of the column with
-index `j`. 
+figure above and setting `nCols = 3` and `j = 1` one can see that the iterable
+contains the elements of the column with index 1.
 
 
 ## Usage
 
 To use this library include [stride] as dependency in your `pubspec.yaml` file.
+The program below demonstrates how to iterate lists using a custom stride (step size)
+and offset.
 
-The program below demonstrates how to iterate list using a custom stride (step size)
-and offset. Tip: Use an object of type [`FastStrideIterable`][FastStrideIterable] when iterating fixed sized lists.
+Tip: [`FastStrideIterable`][FastStrideIterable] uses an iterator of type [`FastStrideIterator`][FastStrideIterator]
+that does not check for concurrent modification before advancing to the next element.
+It is slightly more performant compared to a [`StrideIterable`][StrideIterable]
+and should only be use to iterate *fixed* sized lists.
 ```Dart
 import 'dart:typed_data';
 
@@ -130,6 +134,5 @@ Please file feature requests and bugs at the [issue tracker].
 [StrideIterator]: https://pub.dev/documentation/stride/latest/stride/StrideIterator-class.html
 
 [FastStrideIterator]: https://pub.dev/documentation/stride/latest/stride/FastStrideIterator-class.html
-
 
 [stride]: https://pub.dev/packages/stride

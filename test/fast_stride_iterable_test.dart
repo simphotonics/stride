@@ -3,10 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   final list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  final stride = 3;
+  final stepSize = 3;
 
   group('Empty list:', () {
-    final it = FastStrideIterable(<int>[], stride);
+    final it = <int>[].stride(stepSize, 0, false);
     test('isEmpty', () {
       expect(it.isEmpty, true);
     });
@@ -15,7 +15,11 @@ void main() {
     });
   });
   group('Offset zero:', () {
-    final it = FastStrideIterable(list, stride);
+    final it = list.stride(
+      stepSize,
+      0,
+      false,
+    );
     test('isEmpty', () {
       expect(it.isEmpty, false);
     });
@@ -55,7 +59,7 @@ void main() {
     });
 
     test('followedBy', () {
-      final it2 = FastStrideIterable<int>([100, 101, 102, 103, 104, 105], 2);
+      final it2 = [100, 101, 102, 103, 104, 105].stride(2, 0, false);
       expect(it.followedBy(it2), [0, 3, 6, 9, 100, 102, 104]);
     });
     test('skip', () {
@@ -73,8 +77,7 @@ void main() {
     });
   });
   group('Offset 2:', () {
-    final it = FastStrideIterable(list, stride);
-    it.offset = 2;
+    final it = list.stride(stepSize, 2, false);
     test('isEmpty', () {
       expect(it.isEmpty, false);
     });
@@ -114,8 +117,7 @@ void main() {
     });
 
     test('followedBy', () {
-      final it2 = FastStrideIterable<int>([100, 101, 102, 103, 104, 105], 2);
-      it2.offset = 1;
+      final it2 = <int>[100, 101, 102, 103, 104, 105].stride(2, 1, false);
       expect(it.followedBy(it2), [2, 5, 8, 101, 103, 105]);
     });
     test('skip', () {

@@ -3,10 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   final list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  final stride = 3;
+  final stepSize = 3;
 
   group('Empty list:', () {
-    final it = StrideIterable(<int>[], stride);
+    final it = <int>[].stride(1);
     test('isEmpty', () {
       expect(it.isEmpty, true);
     });
@@ -15,7 +15,7 @@ void main() {
     });
   });
   group('Offset zero:', () {
-    final it = StrideIterable(list, stride);
+    final it = list.stride(stepSize);
     test('isEmpty', () {
       expect(it.isEmpty, false);
     });
@@ -55,7 +55,7 @@ void main() {
     });
 
     test('followedBy', () {
-      final it2 = StrideIterable<int>([100, 101, 102, 103, 104, 105], 2);
+      final it2 = <int>[100, 101, 102, 103, 104, 105].stride(2);
       expect(it.followedBy(it2), [0, 3, 6, 9, 100, 102, 104]);
     });
     test('skip', () {
@@ -73,8 +73,7 @@ void main() {
     });
   });
   group('Offset 2:', () {
-    final it = StrideIterable(list, stride);
-    it.offset = 2;
+    final it = list.stride(stepSize, 2);
     test('isEmpty', () {
       expect(it.isEmpty, false);
     });
@@ -114,8 +113,8 @@ void main() {
     });
 
     test('followedBy', () {
-      final it2 = StrideIterable<int>([100, 101, 102, 103, 104, 105], 2);
-      it2.offset = 1;
+      final it2 = <int>[100, 101, 102, 103, 104, 105].stride(2, 1);
+
       expect(it.followedBy(it2), [2, 5, 8, 101, 103, 105]);
     });
     test('skip', () {
@@ -130,22 +129,6 @@ void main() {
 
     test('where', () {
       expect(it.where((element) => element.isEven), [2, 8]);
-    });
-  });
-  group('Concurrent mod:', () {
-    final list = [0, 1, 2, 3, 4, 5];
-    final stride = 2;
-    final it = StrideIterable(list, stride);
-    test('removing element', () {
-      try {
-        for (var item in it) {
-          if (item == 4) {
-            list.removeAt(4);
-          }
-        }
-      } catch (e) {
-        expect(e, isA<ConcurrentModificationError>());
-      }
     });
   });
 }

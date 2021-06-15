@@ -2,10 +2,10 @@ import 'package:stride/stride.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  final stride = 3;
+  final setOfInts = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  final stepSize = 3;
   group('Empty list:', () {
-    final it = FastStrideIterator(<int?>[], stride);
+    final it = <int?>[].stride(1, 0, false).iterator;
     test('current', () {
       expect(it.current, null);
     });
@@ -16,20 +16,19 @@ void main() {
   });
   group('Offset zero:', () {
     test('first', () {
-      final it = FastStrideIterator(list, stride);
+      final it = setOfInts.stride(stepSize).iterator;
       expect(it.moveNext(), true);
       expect(it.current, 0);
     });
     test('second', () {
-      final it = FastStrideIterator(list, stride);
+      final it = setOfInts.stride(stepSize).iterator;
       expect(it.moveNext(), true);
       expect(it.moveNext(), true);
       expect(it.current, 3);
     });
   });
   group('Offset 2:', () {
-    final iterable = StrideIterable(list, stride);
-    iterable.offset = 2;
+    final iterable = setOfInts.stride(stepSize, 2);
     test('first', () {
       final it = iterable.iterator;
       expect(it.moveNext(), true);
@@ -42,11 +41,11 @@ void main() {
       expect(it.current, 5);
     });
   });
-  group('Concurrent mod:', () {
+  group('Concurrent modification:', () {
     final list = [0, 1, 2, 3, 4, 5];
-    final stride = 2;
+    final stepSize = 2;
     test('removing element', () {
-      final it = StrideIterator(list, stride);
+      final it = list.stride(stepSize).iterator;
       try {
         list.removeAt(3);
         it.moveNext();

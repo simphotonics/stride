@@ -7,14 +7,16 @@
 class FastStrideIterator<E> implements Iterator<E> {
   /// Constructs an object of type `FastStrideIterator`.
   /// * `fixedLengthList`: A list with fixed length and entries of type `E`.
-  /// * `stride`: The iteration stride (step size).
-  /// * `offset`: Must be a valid list index.
-  ///  `0 <= offset < fixedLengthList.length`.
-  FastStrideIterator(List<E> fixedLengthList, int stride, [int offset = 0])
+  /// * `stepSize`: The iteration stride (step size). Must be larger than zero.
+  /// * `startPosition`: If `startPosition` is a valid list index
+  /// then the first element returned by the getter `current` (after initially
+  /// advancing the iterator) will be: `fixedLengthList[startPosition]`.
+  FastStrideIterator(List<E> fixedLengthList, int stepSize,
+      [int startPosition = 0])
       : _list = fixedLengthList,
-        _stride = stride,
+        this.stepSize = stepSize <= 0 ? 1 : stepSize,
         _fixedListLength = fixedLengthList.length,
-        _position = offset < 0 ? -stride : offset - stride;
+        _position = startPosition < 0 ? -stepSize : startPosition - stepSize;
 
   /// The iterable being iterated.
   final List<E> _list;
@@ -26,7 +28,7 @@ class FastStrideIterator<E> implements Iterator<E> {
   int _position;
 
   /// The iteration stride.
-  final int _stride;
+  final int stepSize;
 
   /// The current element.
   E? _current;
@@ -43,7 +45,7 @@ class FastStrideIterator<E> implements Iterator<E> {
   /// [FastStrideIterator] should be used for iterating *fixed* length lists.
   @override
   bool moveNext() {
-    _position += _stride;
+    _position += stepSize;
     if (_position < _fixedListLength) {
       _current = _list[_position];
       return true;

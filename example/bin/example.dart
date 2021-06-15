@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:stride/stride.dart';
 
 main(List<String> args) {
-  /// 3x3 matrix.
+  // 3x3 matrix.
   final array2D = <List<String>>[
     ['e00', 'e01', 'e02'],
     ['e10', 'e11', 'e12'],
@@ -13,9 +13,9 @@ main(List<String> args) {
   /// Elements of 3x3 matrix in row major layout.
   final list = ['e00', 'e01', 'e02', 'e10', 'e11', 'e12', 'e20', 'e21', 'e22'];
 
-  final stride = 3;
-  final offset = 1;
-  final strideIt0 = StrideIterable<String>(list, stride, offset);
+  final stepSize = 3;
+  final startPosition = 1;
+  final strideIt0 = list.stride(stepSize, startPosition);
 
   print('3D array:');
   print(array2D[0]);
@@ -27,25 +27,21 @@ main(List<String> args) {
   print(strideIt0);
   print('');
 
-  /// Typed list (with fixed length).
+  // Typed list (with fixed length).
   final numericalList =
       Float64List.fromList([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-  /// Use FastStrideIterable and FastStrideIterator
-  /// to iterate fixed length lists.
-  final strideIt1 = FastStrideIterable<double>(numericalList, stride, offset);
+  final strideIt1 = numericalList.stride(
+    stepSize,
+    startPosition,
+    false,   // <-----------    Disabling concurrent modification checks.
+  );
 
   print('Numerical list:');
   print(numericalList);
   print('');
 
-  print('Offset: 1, Stride: 3');
+  print('Start position: 1 and step-size: 3:');
   print(strideIt1);
   print('');
-
-  // The offset can be set.
-  strideIt1.offset = 5;
-
-  print('Offset: 5, Stride: 3');
-  print(strideIt1);
 }

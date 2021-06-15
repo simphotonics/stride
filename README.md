@@ -23,8 +23,8 @@ skip `i * nCols` elements and then collect the next `nCols` elements.
 
 In order to access the elements of the column with index `j`, one could use
 a [`StrideIterable`][StrideIterable]:
-`column_j = StrideIterable(array1D, nCols, j)`. The iterable starts at the offset
-`j` and uses the stride `nCols` to advance to the next element. Looking at the
+`column_j = array1D.stride(nCols, j)`. The iterable starts at `j`
+and uses the stride `nCols` to advance to the next element. Looking at the
 figure above and setting `nCols = 3` and `j = 1` one can see that the iterable
 contains the elements of the column with index 1.
 
@@ -32,20 +32,19 @@ contains the elements of the column with index 1.
 ## Usage
 
 To use this library include [stride] as dependency in your `pubspec.yaml` file.
-The program below demonstrates how to iterate lists using a custom stride (step size)
-and offset.
+The program below demonstrates how to iterate lists using a custom step size
+and start position.
 
-Tip: [`FastStrideIterable`][FastStrideIterable] uses an iterator of type [`FastStrideIterator`][FastStrideIterator]
-that does not check for concurrent modification before advancing to the next element.
-It is slightly more performant compared to a [`StrideIterable`][StrideIterable]
-and should only be use to iterate *fixed* sized lists.
+Tip: When iterating *fixed* size lists it is possible to disable concurrent modification
+checks before advancing to the next element (see below).
+
 ```Dart
 import 'dart:typed_data';
 
 import 'package:stride/stride.dart';
 
 main(List<String> args) {
-  /// 3x3 matrix.
+  // 3x3 matrix.
   final array2D = <List<String>>[
     ['e00', 'e01', 'e02'],
     ['e10', 'e11', 'e12'],
@@ -55,9 +54,9 @@ main(List<String> args) {
   /// Elements of 3x3 matrix in row major layout.
   final list = ['e00', 'e01', 'e02', 'e10', 'e11', 'e12', 'e20', 'e21', 'e22'];
 
-  final stride = 3;
-  final offset = 1;
-  final strideIt0 = StrideIterable<String>(list, stride, offset);
+  final stepSize = 3;
+  final startPosition = 1;
+  final strideIt0 = list.stride(stepSize, startPosition);
 
   print('3D array:');
   print(array2D[0]);
@@ -69,30 +68,25 @@ main(List<String> args) {
   print(strideIt0);
   print('');
 
-
-  /// Typed list (with fixed length).
+  // Typed list (with fixed length).
   final numericalList =
       Float64List.fromList([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-  /// Use FastStrideIterable and FastStrideIterator
-  /// to iterate fixed length lists.
-  final strideIt1 = FastStrideIterable<double>(numericalList, stride, offset);
-
+  final strideIt1 = numericalList.stride(
+    stepSize,
+    startPosition,
+    false,   // <-----------    Disabling concurrent modification checks.
+  );
 
   print('Numerical list:');
   print(numericalList);
   print('');
 
-  print('Offset: 1, Stride: 3');
+  print('Start position: 1 and step-size: 3:');
   print(strideIt1);
   print('');
-
-  // The offset can be set.
-  strideIt1.offset = 5;
-
-  print('Offset: 5, Stride: 3');
-  print(strideIt1);
 }
+
 ```
 Running the program above produces the following console output:
 
@@ -106,11 +100,11 @@ $ dart example.dart
 Column 1:
 (e01, e11, e21)
 
-Offset: 1, Stride: 3
-(1.0, 4.0, 7.0, 10.0)
+Numerical list:
+[0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
 
-Offset: 5, Stride: 3
-(5.0, 8.0)
+Start position: 1 and step-size: 3:
+(1.0, 4.0, 7.0, 10.0)
 ```
 
 

@@ -22,21 +22,22 @@ is an easy task to access the elements of the row with index `i`:
 skip `i * nCols` elements and then collect the next `nCols` elements.
 
 In order to access the elements of the column with index `j`, one could use
-a [`StrideIterable`][StrideIterable]:
-`column_j = array1D.stride(nCols, j)`. The iterable starts at `j`
-and uses the stride `nCols` to advance to the next element. Looking at the
+the method `stride` added by the extension [`Stride`][Stride]:
+`column_j = array1D.stride(nCols, j)`. The method returns an iterable with start position `j`
+which uses the step size `nCols` to advance to the next element. Looking at the
 figure above and setting `nCols = 3` and `j = 1` one can see that the iterable
 contains the elements of the column with index 1.
 
 
 ## Usage
 
-To use this library include [stride] as dependency in your `pubspec.yaml` file.
+To use this package include [stride] as dependency in your `pubspec.yaml` file.
 The program below demonstrates how to iterate lists using a custom step size
 and start position.
 
-Tip: When iterating *fixed* size lists it is possible to disable concurrent modification
-checks before advancing to the next element (see below).
+Tip: When iterating *fixed* size lists it is advisable to disable concurrent modification
+checks. The slight performance improvement
+is more evident when iterating very long lists.
 
 ```Dart
 import 'dart:typed_data';

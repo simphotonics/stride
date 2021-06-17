@@ -11,7 +11,7 @@ To speed up arithmetical operations and minimize storage it can be advantageous 
 flatten multi-dimensional arrays
 (see [Numerical computation](https://dart.dev/articles/archive/numeric-computation)).
 
-Consider an N-dimensional array with length d<sub>i</sub> along dimension i. Assuming that the array is flattened using a *row major layout*, one can
+Consider an N-dimensional array, arrayN, with length d<sub>i</sub> along dimension i. Assuming that the array is flattened using a *row major layout*, one can
 access the element arrayN[i<sub>0</sub>][i<sub>1</sub>]&ctdot;[i<sub>n-1</sub>]  as array1[  s<sub>0</sub> &middot; i<sub>0</sub>  + &ctdot; +  s<sub>n-1</sub> &middot; i<sub>n-1</sub>].
 
 The strides (step sizes) used above are given by:

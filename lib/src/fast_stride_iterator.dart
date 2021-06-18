@@ -1,5 +1,5 @@
-/// Iterates a fixed length [List] using a custom stride (step size)
-/// and offset. The iterator is initial positioned at `offset - stride`.
+/// Iterates a fixed length [List] using a custom step size
+/// and start index.
 ///
 /// Note: Concurrent modification is *not* checked
 /// prior to advancing the iterator. It is assumed that the list length does
@@ -8,15 +8,15 @@ class FastStrideIterator<E> implements Iterator<E> {
   /// Constructs an object of type `FastStrideIterator`.
   /// * `fixedLengthList`: A list with fixed length and entries of type `E`.
   /// * `stepSize`: The iteration stride (step size). Must be larger than zero.
-  /// * `startPosition`: If `startPosition` is a valid list index
+  /// * `startIndex`: If `startIndex` is a valid list index
   /// then the first element returned by the getter `current` (after initially
-  /// advancing the iterator) will be: `fixedLengthList[startPosition]`.
+  /// advancing the iterator) will be: `fixedLengthList[startIndex]`.
   FastStrideIterator(List<E> fixedLengthList, int stepSize,
-      [int startPosition = 0])
+      [int startIndex = 0])
       : _list = fixedLengthList,
         this.stepSize = stepSize <= 0 ? 1 : stepSize,
         _fixedListLength = fixedLengthList.length,
-        _position = startPosition < 0 ? -stepSize : startPosition - stepSize;
+        _position = startIndex < 0 ? -stepSize : startIndex - stepSize;
 
   /// The iterable being iterated.
   final List<E> _list;

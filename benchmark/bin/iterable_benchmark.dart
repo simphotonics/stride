@@ -3,10 +3,28 @@ import 'dart:typed_data';
 import 'package:benchmark/benchmark.dart';
 import 'package:stride/stride.dart';
 
+extension StrideII<E> on Iterable<E> {
+  Iterable<E> strideII(int stepSize, int startIndex) {
+    var counter = 0;
+    return this.skip(startIndex).skipWhile((_) {
+      if (counter == 0) {
+        ++counter;
+        return true;
+      } else if (counter == stepSize - 1) {
+        counter = 0;
+        return false;
+      } else {
+        ++counter;
+        return false;
+      }
+    });
+  }
+}
+
 final nRows = 100000;
 final nCols = 10;
 final stepSize = nCols;
-final startPosition = 4;
+final startIndex = 4;
 
 final array2d = List<List<double>>.generate(
   nRows,
@@ -19,9 +37,9 @@ final list = List<double>.generate(
 );
 final typedList = Float64List.fromList(list);
 
-final typedListIt = typedList.stride(stepSize, startPosition, false);
-final listFastIt = list.stride(stepSize, startPosition, false);
-final listIt = list.stride(stepSize, startPosition);
+final typedListIt = typedList.stride(stepSize, startIndex, false);
+final listFastIt = list.stride(stepSize, startIndex, false);
+final listIt = list.stride(stepSize, startIndex);
 
 var tmp = 0.0;
 
@@ -32,7 +50,7 @@ void main() {
     benchmark('array2d[i][4]', () {
       // ignore: unused_local_variable
       var column_49 = [
-        for (var i = 0; i < array2d.length; i++) tmp = array2d[i][startPosition]
+        for (var i = 0; i < array2d.length; i++) tmp = array2d[i][startIndex]
       ];
     }, duration: Duration(milliseconds: 600));
     benchmark('list iterator checked', () {

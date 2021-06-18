@@ -14,10 +14,10 @@ main(List<String> args) {
   final list = ['e00', 'e01', 'e02', 'e10', 'e11', 'e12', 'e20', 'e21', 'e22'];
 
   final stepSize = 3;
-  final startPosition = 1;
-  final strideIt0 = list.stride(stepSize, startPosition);
+  final startIndex = 1;
+  final strideIt0 = list.stride(stepSize, startIndex);
 
-  print('3D array:');
+  print('2D array:');
   print(array2D[0]);
   print(array2D[1]);
   print(array2D[2]);
@@ -33,15 +33,15 @@ main(List<String> args) {
 
   final strideIt1 = numericalList.stride(
     stepSize,
-    startPosition,
-    false,   // <-----------    Disabling concurrent modification checks.
+    startIndex,
+    false, // <-----------    Disabling concurrent modification checks.
   );
 
   print('Numerical list:');
   print(numericalList);
   print('');
 
-  print('Start position: 1 and step-size: 3:');
+  print('start index: 1 and step-size: 3:');
   print(strideIt1);
   print('');
 }

@@ -4,7 +4,7 @@ import 'package:stride/stride.dart';
 final nRows = 10;
 final nCols = 5;
 final stepSize = nCols;
-final startPosition = 4;
+final startIndex = 4;
 
 final array2d = List<List<double>>.generate(
   nRows,
@@ -17,11 +17,11 @@ final list = List<double>.generate(
 );
 final typedList = Float64List.fromList(list);
 
-final listFastIt = list.stride(stepSize, startPosition, false);
-final typedListFastIt = typedList.stride(stepSize, startPosition, false);
+final listFastIt = list.stride(stepSize, startIndex, false);
+final typedListFastIt = typedList.stride(stepSize, startIndex, false);
 
-final listIt = list.stride(stepSize, startPosition);
-final typedListIt = typedList.stride(stepSize, startPosition);
+final listIt = list.stride(stepSize, startIndex);
+final typedListIt = typedList.stride(stepSize, startIndex);
 
 var tmp = 0.0;
 
@@ -31,10 +31,10 @@ void main() {
 
   print('');
   print(listFastIt);
-  print(typedListFastIt.toList());
+  print(typedListFastIt);
 
   var column_4 = [
-    for (var i = 0; i < array2d.length; i++) tmp = array2d[i][startPosition]
+    for (var i = 0; i < array2d.length; i++) tmp = array2d[i][startIndex]
   ];
 
   print(column_4);

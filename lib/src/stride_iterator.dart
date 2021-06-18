@@ -1,5 +1,5 @@
-/// Iterates an [Iterable] using a custom stride (step size) and
-/// start position.
+/// Iterates an [Iterable] using a custom step size and
+/// start index.
 ///
 /// Note: Concurrent modification is checked
 /// prior to advancing the iterator.
@@ -7,14 +7,14 @@ class StrideIterator<E> implements Iterator<E> {
   /// Constructs an object of type `StrideIterator`.
   /// * `iterable`: An iterable with entries of type `E`.
   /// * `stepSize`: The iteration stride (step size). Must be larger than zero.
-  /// * `startPosition`: If `startPosition` is a valid list index
+  /// * `startIndex`: If `startIndex` is a valid list index
   /// then the first element returned by the getter `current` (after initially
-  /// advancing the iterator) will be: `iterable.elementAt(startPosition)`.
-  StrideIterator(Iterable<E> iterable, int stepSize, [int startPosition = 0])
+  /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
+  StrideIterator(Iterable<E> iterable, int stepSize, [int startIndex = 0])
       : _iterable = iterable,
-      this.stepSize = stepSize <= 0 ? 1: stepSize,
+        this.stepSize = stepSize <= 0 ? 1 : stepSize,
         _length = iterable.length,
-        _position = startPosition < 0 ? -stepSize : startPosition - stepSize;
+        _position = startIndex < 0 ? -stepSize : startIndex - stepSize;
 
   /// The iterable being iterated.
   final Iterable<E> _iterable;

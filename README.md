@@ -28,7 +28,7 @@ s<sub>n-1</sub> = 1.
 
 
 The example below shows the elements of a 2-dimensional array stored as a 1-dimensional
-array (a Dart list) using a *row major layout*.
+array (a Dart list).
 
 ![2D-Array](https://github.com/simphotonics/stride/blob/main/images/array.svg?sanitize=true)
 
@@ -46,7 +46,7 @@ the method `stride` added by the extension [`Stride`][Stride]:
 
 column_j = array1.stride(nCols, j).
 
-The method returns an iterable with start position j
+The method returns an iterable which start from index j
 which uses the step size `nCols` to advance to the next element. Looking at the
 figure above and setting `nCols = 3` and `j = 1` one can see that the iterable
 contains the elements of the column with index 1.
@@ -56,7 +56,7 @@ contains the elements of the column with index 1.
 
 To use this package include [stride] as dependency in your `pubspec.yaml` file.
 The program below demonstrates how to iterate lists using a custom step size
-and start position.
+and start index.
 
 Tip: When iterating *fixed* size lists it is advisable to disable concurrent modification
 checks. The slight performance improvement
@@ -79,10 +79,10 @@ main(List<String> args) {
   final list = ['e00', 'e01', 'e02', 'e10', 'e11', 'e12', 'e20', 'e21', 'e22'];
 
   final stepSize = 3;
-  final startPosition = 1;
-  final strideIt0 = list.stride(stepSize, startPosition);
+  final startIndex = 1;
+  final strideIt0 = list.stride(stepSize, startIndex);
 
-  print('3D array:');
+  print('2D array:');
   print(array2D[0]);
   print(array2D[1]);
   print(array2D[2]);
@@ -98,7 +98,7 @@ main(List<String> args) {
 
   final strideIt1 = numericalList.stride(
     stepSize,
-    startPosition,
+    startIndex,
     false,   // <-----------    Disabling concurrent modification checks.
   );
 
@@ -106,7 +106,7 @@ main(List<String> args) {
   print(numericalList);
   print('');
 
-  print('Start position: 1 and step-size: 3:');
+  print('start index: 1 and step-size: 3:');
   print(strideIt1);
   print('');
 }
@@ -116,7 +116,7 @@ Running the program above produces the following console output:
 
 ```Console
 $ dart example.dart
-3D array:
+2D array:
 [e00, e01, e02]
 [e10, e11, e12]
 [e20, e21, e22]
@@ -127,7 +127,7 @@ Column 1:
 Numerical list:
 [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
 
-Start position: 1 and step-size: 3:
+start index: 1 and step-size: 3:
 (1.0, 4.0, 7.0, 10.0)
 ```
 

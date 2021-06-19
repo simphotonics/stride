@@ -134,7 +134,7 @@ start index: 1 and step-size: 3:
 
 ## Examples
 
-A copy of the program shown in the section above can be found in the folder  [example].
+A copy of the program shown in the section above can be found in the folder [example].
 
 
 ## Features and bugs
@@ -143,7 +143,7 @@ Please file feature requests and bugs at the [issue tracker].
 
 [issue tracker]: https://github.com/simphotonics/stride/issues
 
-[example]: example
+[example]: https://github.com/simphotonics/stride/tree/main/example
 
 [Stride]: https://pub.dev/documentation/stride/latest/stride/StrideIterator-class.html
 

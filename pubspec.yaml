@@ -1,7 +1,6 @@
 name: stride
 
-description: Provides the extension method
-`stride` which returns an iterable with custom start index and step size.
+description: Enables iterating Dart Lists and Iterables with a custom start index and step size (stride).
 
 version: 0.0.1
 
@@ -11,7 +10,7 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  exception_templates: ^0.2.1
+  
 
 dev_dependencies:
   benchmark: ^0.3.0

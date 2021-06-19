@@ -5,7 +5,7 @@ void main() {
   final list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   final stepSize = 3;
   group('Empty list:', () {
-    final it = <int?>[].stride(1, 0 , false).iterator;
+    final it = <int?>[].stride(1, 0, false).iterator;
     test('current', () {
       expect(it.current, null);
     });

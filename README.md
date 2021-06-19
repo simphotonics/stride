@@ -1,7 +1,5 @@
 # Dart Stride Iterator
-
-[![Dart](https://github.com/simphotonics/exception_templates/actions/workflows/dart.yml/badge.svg)](https://github.com/simphotonics/exception_templates/actions/workflows/dart.yml)
-
+[![Dart](https://github.com/simphotonics/stride/actions/workflows/dart.yml/badge.svg)](https://github.com/simphotonics/stride/actions/workflows/dart.yml)
 
 ## Introduction
 

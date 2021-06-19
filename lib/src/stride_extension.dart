@@ -1,10 +1,8 @@
-import 'package:exception_templates/exception_templates.dart';
-
 import 'fast_stride_iterator.dart';
 import 'stride_iterator.dart';
 
 /// An `Iterable` backed by a *fixed* length list. The start
-/// position and the step size can be specified.
+/// index and the step size can be specified.
 class _FastStrideIterable<E> extends Iterable<E> {
   /// Constructs a object of type [_FastStrideIterable].
   /// * `fixedLengthList`: A list with fixed length and entries of type `E`.
@@ -103,15 +101,8 @@ extension Stride<E> on Iterable<E> {
   /// `startIndex` using a custom `stepSize`.
   ///
   /// Note: The parameter `stepSize` must be larger than zero.
-  Iterable<E> stride(int stepSize, [int startIndex = 0]) {
-    if (stepSize < 1) {
-      throw ErrorOf<Iterable<E>>(
-          message: 'Could not construct _StrideIterable<$E>.',
-          invalidState: 'stepsize = $stepSize.',
-          expectedState: 'The step size must be larger than 0.');
-    }
-    return _StrideIterable<E>(this, stepSize, startIndex);
-  }
+  Iterable<E> stride(int stepSize, [int startIndex = 0]) =>
+      _StrideIterable<E>(this, stepSize, startIndex);
 }
 
 /// Extension on `List<E>` providing the method `stride`.
@@ -126,16 +117,8 @@ extension FastStride<E> on List<E> {
     int stepSize, [
     int startIndex = 0,
     bool checkConcurrentModification = true,
-  ]) {
-    if (stepSize < 1) {
-      throw ErrorOf<List<E>>(
-          message: 'Could not construct _FastStrideIterable<$E>.',
-          invalidState: 'stepsize = $stepSize.',
-          expectedState: 'The step size must be larger than 0.');
-    }
-
-    return checkConcurrentModification
-        ? _StrideIterable(this, stepSize, startIndex)
-        : _FastStrideIterable<E>(this, stepSize, startIndex);
-  }
+  ]) =>
+      checkConcurrentModification
+          ? _StrideIterable(this, stepSize, startIndex)
+          : _FastStrideIterable<E>(this, stepSize, startIndex);
 }

@@ -1,15 +1,15 @@
-/// Iterates a fixed length [List] using a custom step size
-/// and start index.
+/// Iterates a fixed length [List] using a positive non-zero step size
+/// and a custom start index.
 ///
 /// Note: Concurrent modification is *not* checked
 /// prior to advancing the iterator. It is assumed that the list length does
 /// not change. Should be used to iterate *fixed* length lists.
 class UncheckedStrideIterator<E> implements Iterator<E> {
   /// Constructs an object of type [UncheckedStrideIterator].
-  /// * `fixedLengthList`: A list with fixed length and entries of type `E`.
-  /// * `stepSize`: The iteration stride (step size). Must be larger than zero.
-  /// * `startIndex`: If `startIndex` is a valid list index
-  /// then the first element returned by the getter `current` (after initially
+  /// * [fixedLengthList]: A list with fixed length and entries of type `E`.
+  /// * [stepSize]: The iteration stride (step size). Must be larger than zero.
+  /// * [startIndex]: If [startIndex] is a valid list index
+  /// then the first element returned by the getter [current] (after initially
   /// advancing the iterator) will be: `fixedLengthList[startIndex]`.
   UncheckedStrideIterator(List<E> fixedLengthList, int stepSize,
       [int startIndex = 0])
@@ -58,18 +58,18 @@ class UncheckedStrideIterator<E> implements Iterator<E> {
   }
 }
 
-/// Iterates an [Iterable] using a custom step size and
-/// start index.
+/// Iterates an [Iterable] using a negative non-zero step size and
+/// a custom start index.
 ///
 /// Concurrent modification is *not* checked
 /// prior to advancing the iterator.
 class ReverseUncheckedStrideIterator<E> implements Iterator<E> {
   /// Constructs an object of type [ReverseUncheckedStrideIterator].
-  /// * `iterable`: A fixed length list with entries of type `E`.
-  /// * `stepSize`: The iteration stride (step size). Must be smaller than zero.
-  /// * `startIndex`: If `startIndex` is a valid list index
-  /// then the first element returned by the getter `current` (after initially
-  /// advancing the iterator) will be: `fixedLengthList.[startIndex]`.
+  /// * [fixedLengthList]: A fixed length list with entries of type `E`.
+  /// * [stepSize]: The iteration stride (step size). Must be smaller than zero.
+  /// * [startIndex]: If [startIndex] is a valid list index
+  /// then the first element returned by the getter [current] (after initially
+  /// advancing the iterator) will be: `fixedLengthList[startIndex]`.
   ReverseUncheckedStrideIterator(List<E> fixedLengthList, int stepSize,
       [int startIndex = 0])
       : _list = fixedLengthList,

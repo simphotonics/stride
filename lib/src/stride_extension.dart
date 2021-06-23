@@ -189,10 +189,11 @@ class _ReverseStrideIterable<E> extends Iterable<E> {
 
 /// Extension on `Iterable<E>` providing the method `stride`.
 extension Stride<E> on Iterable<E> {
-  /// Returns an `Iterable<E>` which iterates `this` starting from
-  /// `startIndex` using a custom `stepSize`.
-  ///
-  /// Note: The parameter `stepSize` must not be zero.
+  /// Returns an `Iterable<E>` which iterates `this` using a custom [stepSize]
+  /// and starting from [startIndex].
+  /// * If [startIndex] is a valid list index then the
+  /// first element of the iterable will be: `this.elementAt(startIndex)`.
+  /// * The parameter [stepSize] must not be zero.
   Iterable<E> stride(int stepSize, [int startIndex = 0]) {
     if (stepSize == 0) {
       _throwError<E>();
@@ -205,11 +206,13 @@ extension Stride<E> on Iterable<E> {
 
 /// Extension on `List<E>` providing the method `stride`.
 extension FastStride<E> on List<E> {
-  /// Returns an `Iterable<E>` which iterates `this` starting from
-  /// `startIndex` using a custom `stepSize`.
-  /// * The parameter `stepSize` must not be zero.
+  /// Returns an `Iterable<E>` which iterates `this` using a custom [stepSize]
+  /// and starting from [startIndex].
+  /// * If [startIndex] is a valid list index then the
+  /// first element of the iterable will be: `this[startIndex]`.
+  /// * The parameter [stepSize] must not be zero.
   /// * Checking for concurrent modification is enabled by default.
-  /// * Iterating fixed length lists can be sped up by setting
+  /// * Iterating fixed length lists can be sped up by setting the parameter
   /// `checkConcurrentModification` to `false`.
   Iterable<E> stride(
     int stepSize, [

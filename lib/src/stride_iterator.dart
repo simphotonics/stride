@@ -1,13 +1,13 @@
-/// Iterates an [Iterable] using a custom (positive, non-zero) step size and
-/// start index.
+/// Iterates an [Iterable] using a positive non-zero step size and
+/// a custom start index.
 ///
 /// Concurrent modification is checked
 /// prior to advancing the iterator.
 class StrideIterator<E> implements Iterator<E> {
   /// Constructs an object of type [StrideIterator].
-  /// * `iterable`: An iterable with entries of type `E`.
-  /// * `stepSize`: The iteration stride (step size). Must be larger than zero.
-  /// * `startIndex`: If `startIndex` is a valid list index
+  /// * [iterable]: An iterable with entries of type `E`.
+  /// * [stepSize]: The iteration stride (step size). Must be larger than zero.
+  /// * [startIndex]: If [startIndex] is a valid list index
   /// then the first element returned by the getter `current` (after initially
   /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
   StrideIterator(Iterable<E> iterable, int stepSize, [int startIndex = 0])
@@ -51,17 +51,17 @@ class StrideIterator<E> implements Iterator<E> {
   }
 }
 
-/// Iterates an [Iterable] using a custom negative step size and
-/// start index.
+/// Iterates an [Iterable] using a negative non-zero step size and
+/// a custom start index.
 ///
 /// Concurrent modification is checked
 /// prior to advancing the iterator.
 class ReverseStrideIterator<E> implements Iterator<E> {
   /// Constructs an object of type [ReverseStrideIterator].
-  /// * `iterable`: An iterable with entries of type `E`.
-  /// * `stepSize`: The iteration stride (step size). Must be smaller than zero.
-  /// * `startIndex`: If `startIndex` is a valid list index
-  /// then the first element returned by the getter `current` (after initially
+  /// * [iterable]: An iterable with entries of type `E`.
+  /// * [stepSize]: The iteration stride (step size). Must be smaller than zero.
+  /// * [startIndex]: If [startIndex] is a valid list index
+  /// then the first element returned by the getter [current] (after initially
   /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
   ReverseStrideIterator(Iterable<E> iterable, int stepSize,
       [int startIndex = 0])

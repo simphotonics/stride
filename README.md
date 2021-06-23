@@ -12,7 +12,8 @@ flatten multi-dimensional arrays
 The example below shows the elements of a 2-dimensional array stored as a 1-dimensional
 array (a Dart list) using a row major layout.
 
-![2D-Array](https://github.com/simphotonics/stride/blob/main/images/array.svg?sanitize=true)
+
+![2D-Array](https://github.com/simphotonics/stride/raw/main/images/array.svg?sanitize=true)
 
 In order to access the elements of the column with index 1 (highlighted using an orange rectangle)
 one would need to start the iteration at index 1 and then use a step size of 3 (the number of columns in the
@@ -24,8 +25,8 @@ that can accomplish precisely the task described above.
 ## Usage
 
 To use this package include [stride] as a dependency in your `pubspec.yaml` file.
-The program below demonstrates how to use the extension method
-[`stride`][stride-method] to iterate lists using a custom step size
+The program below demonstrates how to use the
+extension method [`stride`][stride-method] to iterate lists using a custom step size
 and start index. Note that the iteration step size must not be zero. A negative step
 size and suitable start index may be used to iterate in reverse direction.
 
@@ -91,7 +92,7 @@ main(List<String> args) {
 Running the program above produces the following console output:
 
 ```Console
-$ dart example.dart
+$ dart example/bin/example.dart
 2D array:
 [e00, e01, e02]
 [e10, e11, e12]
@@ -112,15 +113,16 @@ start index: 9 and step-size: -3:
 
 ## Row Major and Column Major Storage Layout
 
-Consider an N-dimensional array, arrayN, with length d<sub>i</sub> along dimension i, i &in; [0, n-1]. Let array1 be a 1-dimensional storage (for example a Dart list) able to store all d<sub>0</sub> &middot; d<sub>1</sub> &middot; &nbsp; &ctdot; &nbsp; &middot; d<sub>n-1</sub> elements of arrayN.
+Consider an N-dimensional array, array_N, with length d<sub>i</sub> along dimension i,
+where i &in; \[0, n-1\]. Let array_1 be a Dart list able to store all d<sub>0</sub> &middot; d<sub>1</sub> &middot; &hellip; &middot; d<sub>n-1</sub> elements of array_N.
 
-Let the element arrayN[i<sub>0</sub>][i<sub>1</sub>]&ctdot;[i<sub>n&#x2011;1</sub>] be stored at array1[s<sub>0</sub>&nbsp;&middot;&nbsp;i<sub>0</sub>&nbsp;+&nbsp;&ctdot;&nbsp;+&nbsp; s<sub>n-1</sub>&nbsp;&middot;&nbsp;i<sub>n-1</sub>]. The iteration step sizes, s<sub>i</sub>, depend on the storage order.
+Let array_N\[i<sub>0</sub>\]\[i<sub>1</sub>\]&hellip;\[i<sub>n&#x2011;1</sub>\] be stored at location array_1\[s<sub>0</sub>&middot;i<sub>0</sub>&nbsp;+&nbsp;&hellip;&nbsp;+&nbsp;s<sub>n-1</sub>&middot;i<sub>n-1</sub>\], where the iteration step sizes, s<sub>i</sub>, depend on the storage order.
 
 For a *row major* storage order the step sizes are given by:
 
-s<sub>0</sub> = d<sub>1</sub> &middot; d<sub>2</sub> &middot; &nbsp; &ctdot; &nbsp; &middot; d<sub>n-1</sub>
+s<sub>0</sub> = d<sub>1</sub> &middot; d<sub>2</sub> &middot; &nbsp; &hellip; &nbsp; &middot; d<sub>n-1</sub>
 
-s<sub>1</sub> = d<sub>2</sub> &middot; d<sub>3</sub> &middot;  &nbsp; &ctdot;  &nbsp; &middot; d<sub>n-1</sub>
+s<sub>1</sub> = d<sub>2</sub> &middot; d<sub>3</sub> &middot;  &nbsp; &hellip;  &nbsp; &middot; d<sub>n-1</sub>
 
 &nbsp; &nbsp; &vellip;
 
@@ -141,9 +143,9 @@ s<sub>2</sub> = d<sub>0</sub> &middot; d<sub>1</sub>
 
 &nbsp; &nbsp; &vellip;
 
-s<sub>n-2</sub> = d<sub>0</sub> &middot; d<sub>1</sub> &middot;  &nbsp; &ctdot;  &nbsp; &middot; d<sub>n-3</sub>
+s<sub>n-2</sub> = d<sub>0</sub> &middot; d<sub>1</sub> &middot;  &nbsp; &hellip;  &nbsp; &middot; d<sub>n-3</sub>
 
-s<sub>n-1</sub> = d<sub>0</sub> &middot; d<sub>1</sub> &middot;  &nbsp; &ctdot;  &nbsp; &middot; d<sub>n-2</sub>
+s<sub>n-1</sub> = d<sub>0</sub> &middot; d<sub>1</sub> &middot;  &nbsp; &hellip;  &nbsp; &middot; d<sub>n-2</sub>
 
 
 For more information see [Row- and column-major order](https://en.wikipedia.org/wiki/Row-_and_column-major_order).

@@ -44,4 +44,8 @@ main(List<String> args) {
   print('start index: 1 and step-size: 3:');
   print(strideIt1);
   print('');
+
+  print('start index: 9 and step-size: -3:');
+  final reverseStrideIt1 = numericalList.stride(-3, 9, false );
+  print(reverseStrideIt1);
 }

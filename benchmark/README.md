@@ -4,7 +4,9 @@
 
 ## Benchmark setup
 
-To benchmarked task consists of accessing the elements of column 4 of a 2D array of doubles with 100000 rows and 10 columns. The array is flattened using a row major storage order. The benchmark program is listed below:
+To benchmarked task consists of accessing the elements of column 4 of a 2D array of doubles with 1000000 rows and 10 columns. The array is flattened using a row major storage order.
+<details> <summary> Click to show the benchmark program. </summary>
+
 ```Dart
 import 'dart:typed_data';
 
@@ -59,6 +61,7 @@ void main() {
   });
 }
 ```
+</details>
 
 ## Running the benchmarks
 
@@ -70,22 +73,21 @@ $ pub run benchmark
 A sample benchmark output is listed below:
 ```Dart
 $ pub run benchmark
- DONE  ./benchmark/bin/iterable_benchmark.dart (6 s)
+ DONE  ./benchmark/bin/iterable_benchmark.dart (27 s)
  column_4:
-  ✓ array2d[i][4] (640 ms)
-  ✓ list iterator checked (164 ms)
+  ✓ array2d[i][4] (684 ms)
+  ✓ list iterator checked (158 ms)
   ✓ list iterator (152 ms)
-  ✓ typed list iterator (90 ms)
+  ✓ typed list iterator (83 ms)
 
 Benchmark suites: 1 passed, 1 total
 Benchmarks:       4 passed, 4 total
-Time:             6 s
+Time:             27 s
 Ran all benchmark suites.
-
 ```
 
 The report above was generated on a PC with an Intel Core i5-6260U processor and 32GB of memory
-using the package [`benchmark`][benchmark].
+using the package [`benchmark`][benchmark]. Each benchmark test was run for 6000 milliseconds.
 
 The report above shows that there is a slight performance improvement when disabling concurrent
 modification checks. In this particular case, opting for a typed list leads to a further performance improvement.

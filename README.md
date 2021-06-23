@@ -14,24 +14,12 @@ array (a Dart list) using a row major layout.
 
 ![2D-Array](https://github.com/simphotonics/stride/blob/main/images/array.svg?sanitize=true)
 
-To access the element array2\[i\]\[j\] one needs to
-retrieve array1[nCols &middot; i + j], where nCols is the number of
-columns. Since the 1D array is arranged using a row major layout it
-is an easy task to access the elements of the row with index i:
+In order to access the elements of the column with index 1 (highlighted using an orange rectangle)
+one would need to start the iteration at index 1 and then use a step size of 3 to move to the
+next element.
 
-row_i = array1.sublist(i &middot; nCols, i &middot; nCols + nCols). All we need to do is
-skip i * nCols elements and then collect the next nCols elements.
-
-In order to access the elements of the column with index j, one could use
-the method [`stride`][stride-method] added by the extension [`Stride`][Stride]:
-
-column_j = array1.stride(nCols, j).
-
-The method returns an iterable starting from index j
-and uses the step size `nCols` to advance to the next element. Looking at the
-figure above and setting `nCols = 3` and `j = 1` one can see that the iterable
-contains the elements of the column with index 1.
-
+The package [stride][stride] provides stride iterators and extension methods on `List` and `Iterable`
+that can accomplish the task described above.
 
 ## Usage
 
@@ -41,9 +29,10 @@ The program below demonstrates how to use the extension method
 and start index. The iteration step size must not be zero. A negative step
 size may be used to iterate in reverse direction.
 
-Tip: When iterating *fixed* size lists it is advisable to disable concurrent modification
-checks. The slight performance improvement
-is more evident when iterating very long lists.
+Tip: When iterating *fixed* size lists (and especially typed lists)
+it is advisable to disable concurrent modification
+checks. There is a slight performance improvement
+that is evident when iterating very long lists.
 
 
 ```Dart
@@ -124,10 +113,12 @@ start index: 9 and step-size: -3:
 
 ## Row Major and Column Major Storage Layout
 
-Consider an N-dimensional array, arrayN, with length d<sub>i</sub> along dimension i. Assuming that the array is flattened using a *row major layout*, one can
-access the element arrayN[i<sub>0</sub>][i<sub>1</sub>]&ctdot;[i<sub>n-1</sub>]  as array1[  s<sub>0</sub> &middot; i<sub>0</sub>  + &ctdot; +  s<sub>n-1</sub> &middot; i<sub>n-1</sub>].
+This section is included for reference. For more information see [Row- and column-major order](https://en.wikipedia.org/wiki/Row-_and_column-major_order).
 
-The strides (step sizes) used above are given by:
+Consider an N-dimensional array, arrayN, with length d<sub>i</sub> along dimension i. Then the element arrayN[i<sub>0</sub>][i<sub>1</sub>]&ctdot;[i<sub>n-1</sub>]  can be accessed as array1[  s<sub>0</sub> &middot; i<sub>0</sub>  + &ctdot; +  s<sub>n-1</sub> &middot; i<sub>n-1</sub>], where array1 is a linear storage and the strides (step sizes) depend on the
+storage order.
+
+For a *row major* storage order the step sizes are given by:
 
 s<sub>0</sub> = d<sub>1</sub> &middot; d<sub>2</sub> &middot; &ctdot; &middot; d<sub>n-1</sub>
 
@@ -138,6 +129,25 @@ s<sub>1</sub> = d<sub>2</sub> &middot; d<sub>3</sub> &middot; &ctdot; &middot; d
 s<sub>n-2</sub> = d<sub>n-1</sub>
 
 s<sub>n-1</sub> = 1.
+
+---
+
+For a *column major* storage order the step sizes are given by:
+
+s<sub>0</sub> = 1
+
+
+s<sub>1</sub> = d<sub>0</sub>
+
+&nbsp; &nbsp; &vellip;
+
+s<sub>n-2</sub> = d<sub>n-1</sub>
+
+s<sub>n-1</sub> =
+
+
+
+
 
 
 ## Examples

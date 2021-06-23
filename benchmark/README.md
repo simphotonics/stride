@@ -42,22 +42,22 @@ void main() {
       var column_4 = [
         for (var i = 0; i < array2d.length; i++) tmp = array2d[i][startIndex]
       ];
-    }, duration: Duration(milliseconds: 600));
+    }, duration: Duration(milliseconds: 6000));
     benchmark('list iterator checked', () {
       for (var element in listIt) {
         tmp = element;
       }
-    }, duration: Duration(milliseconds: 600));
+    }, duration: Duration(milliseconds: 6000));
     benchmark('list iterator', () {
       for (var element in listFastIt) {
         tmp = element;
       }
-    }, duration: Duration(milliseconds: 600));
+    }, duration: Duration(milliseconds: 6000));
     benchmark('typed list iterator', () {
       for (var element in typedListIt) {
         tmp = element;
       }
-    }, duration: Duration(milliseconds: 600));
+    }, duration: Duration(milliseconds: 6000));
   });
 }
 ```
@@ -87,7 +87,7 @@ Ran all benchmark suites.
 ```
 
 The report above was generated on a PC with an Intel Core i5-6260U processor and 32GB of memory
-using the package [`benchmark`][benchmark]. Each benchmark test was run for 6000 milliseconds.
+using the package [`benchmark`][benchmark]. Each benchmark task was run for 6000 milliseconds.
 
 The report above shows that there is a slight performance improvement when disabling concurrent
 modification checks. In this particular case, opting for a typed list leads to a further performance improvement.

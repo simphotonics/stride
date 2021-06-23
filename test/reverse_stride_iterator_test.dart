@@ -53,6 +53,5 @@ void main() {
         expect(e, isA<ConcurrentModificationError>());
       }
     });
-
   });
 }

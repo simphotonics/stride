@@ -31,7 +31,7 @@ void main() {
   });
 
   group('Start index: 10', () {
-    final it = list.stride(stepSize, 10,false);
+    final it = list.stride(stepSize, 10, false);
     test('first', () {
       print(it);
       expect(it.first, 10);

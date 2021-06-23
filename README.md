@@ -112,7 +112,7 @@ start index: 9 and step-size: -3:
 
 ## Row Major and Column Major Storage Layout
 
-Consider an N-dimensional array, arrayN, with length d<sub>i</sub> along dimension i, i &in; [0, n-1]. Let array1 be a 1-dimensional storage (for example a Dart list) able to store all d<sub>0</sub> &middot; d<sub>1</sub> &middot; &nbsp; &ctdot; &nbsp; &middot; d<sub>n-1</sub> elements of arrayN.
+This section is included for reference. Consider an N-dimensional array, arrayN, with length d<sub>i</sub> along dimension i, i &in; [0, n-1]. Let array1 be a 1-dimensional storage (for example a Dart list) able to store all d<sub>0</sub> &middot; d<sub>1</sub> &middot; &nbsp; &ctdot; &nbsp; &middot; d<sub>n-1</sub> elements of arrayN.
 
 Let the element arrayN[i<sub>0</sub>][i<sub>1</sub>]&ctdot;[i<sub>n&#x2011;1</sub>] be stored at array1[s<sub>0</sub>&nbsp;&middot;&nbsp;i<sub>0</sub>&nbsp;+&nbsp;&ctdot;&nbsp;+&nbsp; s<sub>n-1</sub>&nbsp;&middot;&nbsp;i<sub>n-1</sub>]. The iteration step sizes, s<sub>i</sub>, depend on the storage order.
 

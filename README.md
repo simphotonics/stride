@@ -15,25 +15,24 @@ array (a Dart list) using a row major layout.
 ![2D-Array](https://github.com/simphotonics/stride/blob/main/images/array.svg?sanitize=true)
 
 In order to access the elements of the column with index 1 (highlighted using an orange rectangle)
-one would need to start the iteration at index 1 and then use a step size of 3 to move to the
-next element.
+one would need to start the iteration at index 1 and then use a step size of 3 (the number of columns in the
+2D-array) to move to the next element.
 
 The package [stride][stride] provides stride iterators and extension methods on `List` and `Iterable`
-that can accomplish the task described above.
+that can accomplish precisely the task described above.
 
 ## Usage
 
 To use this package include [stride] as dependency in your `pubspec.yaml` file.
 The program below demonstrates how to use the extension method
 [`stride`][stride-method] to iterate lists using a custom step size
-and start index. The iteration step size must not be zero. A negative step
-size may be used to iterate in reverse direction.
+and start index. Note that the iteration step size must not be zero. A negative step
+size and suitable start index may be used to iterate in reverse direction.
 
-Tip: When iterating *fixed* size lists (and especially typed lists)
-it is advisable to disable concurrent modification
-checks. There is a slight performance improvement
-that is evident when iterating very long lists.
-
+Tip: When iterating *fixed* size lists and especially typed lists
+it makes perfect sense to disable concurrent modification
+checks. The slight performance improvement
+is evident when iterating very long lists.
 
 ```Dart
 import 'dart:typed_data';
@@ -115,14 +114,18 @@ start index: 9 and step-size: -3:
 
 This section is included for reference. For more information see [Row- and column-major order](https://en.wikipedia.org/wiki/Row-_and_column-major_order).
 
-Consider an N-dimensional array, arrayN, with length d<sub>i</sub> along dimension i. Then the element arrayN[i<sub>0</sub>][i<sub>1</sub>]&ctdot;[i<sub>n-1</sub>]  can be accessed as array1[  s<sub>0</sub> &middot; i<sub>0</sub>  + &ctdot; +  s<sub>n-1</sub> &middot; i<sub>n-1</sub>], where array1 is a linear storage and the strides (step sizes) depend on the
+Consider an N-dimensional array, arrayN, with length d<sub>i</sub> along dimension i, i &in; [0, n-1]. Then the element:
+
+arrayN[i<sub>0</sub>][i<sub>1</sub>]&ctdot;[i<sub>n-1</sub>] = array1[  s<sub>0</sub> &middot; i<sub>0</sub>  + &ctdot; +  s<sub>n-1</sub> &middot; i<sub>n-1</sub>],
+
+where array1 is a linear storage (a Dart list) and the iteration step sizes, s<sub>i</sub>, depend on the
 storage order.
 
 For a *row major* storage order the step sizes are given by:
 
-s<sub>0</sub> = d<sub>1</sub> &middot; d<sub>2</sub> &middot; &ctdot; &middot; d<sub>n-1</sub>
+s<sub>0</sub> = d<sub>1</sub> &middot; d<sub>2</sub> &middot; &nbsp; &ctdot; &nbsp; &middot; d<sub>n-1</sub>
 
-s<sub>1</sub> = d<sub>2</sub> &middot; d<sub>3</sub> &middot; &ctdot; &middot; d<sub>n-1</sub>
+s<sub>1</sub> = d<sub>2</sub> &middot; d<sub>3</sub> &middot;  &nbsp; &ctdot;  &nbsp; &middot; d<sub>n-1</sub>
 
 &nbsp; &nbsp; &vellip;
 
@@ -130,24 +133,22 @@ s<sub>n-2</sub> = d<sub>n-1</sub>
 
 s<sub>n-1</sub> = 1.
 
----
+
 
 For a *column major* storage order the step sizes are given by:
 
 s<sub>0</sub> = 1
 
-
 s<sub>1</sub> = d<sub>0</sub>
+
+s<sub>2</sub> = d<sub>0</sub> &middot; d<sub>1</sub>
+
 
 &nbsp; &nbsp; &vellip;
 
-s<sub>n-2</sub> = d<sub>n-1</sub>
+s<sub>n-2</sub> = d<sub>0</sub> &middot; d<sub>1</sub> &middot;  &nbsp; &ctdot;  &nbsp; &middot; d<sub>n-3</sub>
 
-s<sub>n-1</sub> =
-
-
-
-
+s<sub>n-1</sub> = d<sub>0</sub> &middot; d<sub>1</sub> &middot;  &nbsp; &ctdot;  &nbsp; &middot; d<sub>n-2</sub>
 
 
 ## Examples
@@ -164,8 +165,6 @@ Please file feature requests and bugs at the [issue tracker].
 [example]: https://github.com/simphotonics/stride/tree/main/example
 
 [stride]: https://pub.dev/packages/stride
-
-[FastStrideIterator]: https://pub.dev/documentation/stride/latest/stride/FastStrideIterator-class.html
 
 [Stride]: https://pub.dev/documentation/stride/latest/stride/Stride.html
 

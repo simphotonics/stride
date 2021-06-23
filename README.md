@@ -1,4 +1,4 @@
-# Dart Stride Iterator
+# Dart Stride Iterators
 [![Dart](https://github.com/simphotonics/stride/actions/workflows/dart.yml/badge.svg)](https://github.com/simphotonics/stride/actions/workflows/dart.yml)
 
 ## Introduction
@@ -23,7 +23,7 @@ that can accomplish precisely the task described above.
 
 ## Usage
 
-To use this package include [stride] as dependency in your `pubspec.yaml` file.
+To use this package include [stride] as a dependency in your `pubspec.yaml` file.
 The program below demonstrates how to use the extension method
 [`stride`][stride-method] to iterate lists using a custom step size
 and start index. Note that the iteration step size must not be zero. A negative step

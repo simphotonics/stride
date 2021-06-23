@@ -112,12 +112,9 @@ start index: 9 and step-size: -3:
 
 ## Row Major and Column Major Storage Layout
 
-This section is included for reference. For more information see [Row- and column-major order](https://en.wikipedia.org/wiki/Row-_and_column-major_order).
-
 Consider an N-dimensional array, arrayN, with length d<sub>i</sub> along dimension i, i &in; [0, n-1]. Then the element:
 
 arrayN[i<sub>0</sub>][i<sub>1</sub>]&ctdot;[i<sub>n-1</sub>] = array1[  s<sub>0</sub> &middot; i<sub>0</sub>  + &ctdot; +  s<sub>n-1</sub> &middot; i<sub>n-1</sub>],
-
 where array1 is a linear storage (a Dart list) and the iteration step sizes, s<sub>i</sub>, depend on the
 storage order.
 
@@ -149,6 +146,9 @@ s<sub>2</sub> = d<sub>0</sub> &middot; d<sub>1</sub>
 s<sub>n-2</sub> = d<sub>0</sub> &middot; d<sub>1</sub> &middot;  &nbsp; &ctdot;  &nbsp; &middot; d<sub>n-3</sub>
 
 s<sub>n-1</sub> = d<sub>0</sub> &middot; d<sub>1</sub> &middot;  &nbsp; &ctdot;  &nbsp; &middot; d<sub>n-2</sub>
+
+
+For more information see [Row- and column-major order](https://en.wikipedia.org/wiki/Row-_and_column-major_order).
 
 
 ## Examples

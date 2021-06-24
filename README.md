@@ -84,7 +84,7 @@ main(List<String> args) {
   print('');
 
   print('start index: 9 and step-size: -3:');
-  final reverseStrideIt1 = numericalList.stride(-3, 9, false );
+  final reverseStrideIt1 = numericalList.stride(-3, 9, false);
   print(reverseStrideIt1);
 }
 

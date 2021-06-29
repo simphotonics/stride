@@ -13,7 +13,7 @@ The example below shows the elements of a 2-dimensional array stored as a 1-dime
 array (a Dart list) using a row major layout.
 
 
-![2D-Array](https://github.com/simphotonics/stride/raw/main/images/array.svg?sanitize=true)
+![2D-Array](https://github.com/simphotonics/stride/raw/main/images/array.gif)
 
 In order to access the elements of the column with index 1 (highlighted using an orange rectangle)
 one would need to start the iteration at index 1 and then use a step size of 3 (the number of columns in the

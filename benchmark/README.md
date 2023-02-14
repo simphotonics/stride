@@ -4,7 +4,9 @@
 
 ## Benchmark setup
 
-To benchmarked task consists of accessing the elements of column 4 of a 2D array of doubles with 1000000 rows and 10 columns. The array is flattened using a row major storage order.
+The benchmarked task consists of accessing the elements of column 4 of a 2D array
+storing elements of type `double` with 1000000 rows and 10 columns.
+The array is flattened using a row major storage order.
 <details> <summary> Click to show the benchmark program. </summary>
 
 ```Dart
@@ -28,8 +30,8 @@ final list = List<double>.generate(
   growable: true,
 );
 final typedList = Float64List.fromList(list);
-final typedListIt = typedList.stride(stepSize, startIndex, false);
-final listFastIt = list.stride(stepSize, startIndex, false);
+final typedListIt = typedList.fastStride(stepSize, startIndex);
+final listFastIt = list.fastStride(stepSize, startIndex);
 final listIt = list.stride(stepSize, startIndex);
 
 var tmp = 0.0;
@@ -68,7 +70,7 @@ void main() {
 To run the benchmarks, navigate to the package root in your local copy of [`stride`][stride] and
 use the command:
 ```Console
-$ pub run benchmark
+$ dart run benchmark
 ```
 A sample benchmark output is listed below:
 ```Dart
@@ -87,7 +89,7 @@ Ran all benchmark suites.
 ```
 
 The report above was generated on a PC with an Intel Core i5-6260U processor and 32GB of memory
-using the package [`benchmark`][benchmark]. Each benchmark task was run for 6000 milliseconds.
+using the package [`benchmark`][benchmark]. Each benchmark task was run for 1000 milliseconds.
 
 The report above shows that there is a slight performance improvement when disabling concurrent
 modification checks. In this particular case, opting for a typed list leads to a further performance improvement.

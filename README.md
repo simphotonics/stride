@@ -3,36 +3,40 @@
 
 ## Introduction
 
-In the context of numerical computation, data is often represented as multi-dimensional arrays.
-In Dart, a multi-dimensional array can be represented as a list of lists.
+In the context of numerical computation it is often useful to store data
+in multi-dimensional arrays. In Dart, a multi-dimensional array may be
+represented as a list of lists.
 To speed up arithmetical operations and minimize memory usage it can be advantageous to
-flatten multi-dimensional arrays
+store a multi-dimensional arrays as a flat list
 (see [Numerical computation](https://dart.dev/articles/archive/numeric-computation)).
 
-The example below shows the elements of a 2-dimensional array stored as a 1-dimensional
-array (a Dart list) using a row major layout.
-
+The example below shows how the elements of a 2-dimensional array may
+be stored as a 1-dimensional array (a Dart list) using a row major layout.
 
 ![2D-Array](https://github.com/simphotonics/stride/raw/main/images/array.svg?sanitize=true)
 
-In order to access the elements of the column with index 1 (highlighted using an orange rectangle)
-one would need to start the iteration at index 1 and then use a step size of 3 (the number of columns in the
+In order to access the elements of the column with index 1
+(highlighted using an orange rectangle)
+one would need to start the iteration at index 1 and then use a stride
+(step size) of 3 (the number of columns in the
 2D-array) to move to the next element.
 
-The package [stride][stride] provides stride iterators and extension methods on `List` and `Iterable`
-that can accomplish precisely the task described above.
+The package [stride][stride] provides **stride iterators** and extension
+methods on `List` and `Iterable` that make it possible to iterate using a
+custom start point and step size.
 
 ## Usage
 
-To use this package include [stride] as a dependency in your `pubspec.yaml` file.
+To use this package, include [stride] as a dependency in your `pubspec.yaml` file.
 The program below demonstrates how to use the
 extension method [`stride`][stride-method] to iterate lists using a custom step size
 and start index. Note that the iteration step size must not be zero. A negative step
 size and suitable start index may be used to iterate in reverse direction.
 
-Tip: When iterating *fixed* size lists and especially typed lists
-it makes perfect sense to disable concurrent modification
-checks. The slight performance improvement
+Tip: When iterating *fixed* size lists, immutable lists views, or typed lists
+it makes perfect sense to omit concurrent modification
+checks by using the method [`fastStride][fastStride-method].
+The slight performance improvement
 is evident when iterating very long lists.
 
 ```Dart
@@ -69,10 +73,10 @@ main(List<String> args) {
   final numericalList =
       Float64List.fromList([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-  final strideIt1 = numericalList.stride(
+  // Omitting concurrent modification checks:
+  final strideIt1 = numericalList.fastStride(
     stepSize,
-    startIndex,
-    false,   // <-----------    Disabling concurrent modification checks.
+    startIndex
   );
 
   print('Numerical list:');
@@ -84,7 +88,7 @@ main(List<String> args) {
   print('');
 
   print('start index: 9 and step-size: -3:');
-  final reverseStrideIt1 = numericalList.stride(-3, 9, false);
+  final reverseStrideIt1 = numericalList.stride(-3, 9);
   print(reverseStrideIt1);
 }
 
@@ -169,3 +173,5 @@ Please file feature requests and bugs at the [issue tracker].
 [Stride]: https://pub.dev/documentation/stride/latest/stride/Stride.html
 
 [stride-method]: https://pub.dev/documentation/stride/latest/stride/Stride/stride.html
+
+[fastStride-method]: https://pub.dev/documentation/stride/latest/stride/FastStride/fastStride.html

@@ -6,24 +6,24 @@
 In the context of numerical computation it is often useful to store data
 in multi-dimensional arrays. In Dart, a multi-dimensional array may be
 represented as a list of lists.
-To speed up arithmetical operations and minimize memory usage it can be advantageous to
-store a multi-dimensional arrays as a flat list
+To speed up arithmetical operations and minimize memory usage it may be advantageous to
+store a multi-dimensional array as a flat list
 (see [Numerical computation](https://dart.dev/articles/archive/numeric-computation)).
 
-The example below shows how the elements of a 2-dimensional array may
-be stored as a 1-dimensional array (a Dart list) using a row major layout.
+The example below shows how the elements of a 2-dimensional array can
+be stored as a 1-dimensional array (a Dart list).
 
 ![2D-Array](https://github.com/simphotonics/stride/raw/main/images/array.svg?sanitize=true)
 
 In order to access the elements of the column with index 1
-(highlighted using an orange rectangle)
-one would need to start the iteration at index 1 and then use a stride
-(step size) of 3 (the number of columns in the
-2D-array) to move to the next element.
+(highlighted using an orange rectangle), we
+need to start the iteration at index 1. To move to the next element
+we have to use a step size, or stride, that is equal to the number of columns in the
+2D-array.
 
 The package [stride][stride] provides **stride iterators** and extension
-methods on `List` and `Iterable` that make it possible to iterate using a
-custom start point and step size.
+methods that make it possible to iterate data structures of type `List` and
+`Iterable` using a custom start point and step size.
 
 ## Usage
 
@@ -35,7 +35,7 @@ size and suitable start index may be used to iterate in reverse direction.
 
 Tip: When iterating *fixed* size lists, immutable lists views, or typed lists
 it makes perfect sense to omit concurrent modification
-checks by using the method [`fastStride][fastStride-method].
+checks by using the method [`fastStride`][fastStride-method].
 The slight performance improvement
 is evident when iterating very long lists.
 

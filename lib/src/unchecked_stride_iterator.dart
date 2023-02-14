@@ -14,7 +14,7 @@ class UncheckedStrideIterator<E> implements Iterator<E> {
   UncheckedStrideIterator(List<E> fixedLengthList, int stepSize,
       [int startIndex = 0])
       : _list = fixedLengthList,
-        this.stepSize = stepSize <= 0 ? 1 : stepSize,
+        stepSize = stepSize <= 0 ? 1 : stepSize,
         _fixedListLength = fixedLengthList.length,
         _position = startIndex < 0 ? -stepSize : startIndex - stepSize;
 
@@ -73,7 +73,7 @@ class ReverseUncheckedStrideIterator<E> implements Iterator<E> {
   ReverseUncheckedStrideIterator(List<E> fixedLengthList, int stepSize,
       [int startIndex = 0])
       : _list = fixedLengthList,
-        this.stepSize = stepSize >= 0 ? -1 : stepSize,
+        stepSize = stepSize >= 0 ? -1 : stepSize,
         _length = fixedLengthList.length {
     _position = startIndex > _length - 1
         ? _length - 1 - this.stepSize

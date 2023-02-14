@@ -34,7 +34,6 @@ main(List<String> args) {
   final strideIt1 = numericalList.stride(
     stepSize,
     startIndex,
-    false, // <-----------    Disabling concurrent modification checks.
   );
 
   print('Numerical list:');
@@ -46,6 +45,6 @@ main(List<String> args) {
   print('');
 
   print('start index: 9 and step-size: -3:');
-  final reverseStrideIt1 = numericalList.stride(-3, 9, false );
+  final reverseStrideIt1 = numericalList.stride(-3, 9);
   print(reverseStrideIt1);
 }

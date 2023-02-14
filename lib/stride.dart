@@ -1,6 +1,5 @@
 /// Enables iterating Dart lists and iterables using
 /// a custom step size and start index.
-library stride;
 
 export 'src/stride_extension.dart';
 export 'src/stride_iterator.dart';

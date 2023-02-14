@@ -12,7 +12,7 @@ class StrideIterator<E> implements Iterator<E> {
   /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
   StrideIterator(Iterable<E> iterable, int stepSize, [int startIndex = 0])
       : _iterable = iterable,
-        this.stepSize = stepSize <= 0 ? 1 : stepSize,
+        stepSize = stepSize <= 0 ? 1 : stepSize,
         _length = iterable.length,
         _position = startIndex < 0 ? -stepSize : startIndex - stepSize;
 
@@ -66,7 +66,7 @@ class ReverseStrideIterator<E> implements Iterator<E> {
   ReverseStrideIterator(Iterable<E> iterable, int stepSize,
       [int startIndex = 0])
       : _iterable = iterable,
-        this.stepSize = stepSize >= 0 ? -1 : stepSize,
+        stepSize = stepSize >= 0 ? -1 : stepSize,
         _length = iterable.length {
     _position = startIndex > _length - 1
         ? _length - 1 - this.stepSize

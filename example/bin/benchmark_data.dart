@@ -17,8 +17,8 @@ final list = List<double>.generate(
 );
 final typedList = Float64List.fromList(list);
 
-final listFastIt = list.stride(stepSize, startIndex, false);
-final typedListFastIt = typedList.stride(stepSize, startIndex, false);
+final listFastIt = list.fastStride(stepSize, startIndex);
+final typedListFastIt = typedList.fastStride(stepSize, startIndex);
 
 final listIt = list.stride(stepSize, startIndex);
 final typedListIt = typedList.stride(stepSize, startIndex);
@@ -33,6 +33,7 @@ void main() {
   print(listFastIt);
   print(typedListFastIt);
 
+  // Manually iterating through column 4
   var column_4 = [
     for (var i = 0; i < array2d.length; i++) tmp = array2d[i][startIndex]
   ];

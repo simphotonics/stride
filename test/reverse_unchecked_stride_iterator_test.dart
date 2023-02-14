@@ -6,7 +6,7 @@ void main() {
   final list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   final stepSize = -3;
   group('Empty list:', () {
-    final it = <int?>[].stride(-1, 0, false).iterator;
+    final it = <int?>[].fastStride(-1, 0).iterator;
     test('current', () {
       expect(it.current, null);
     });
@@ -17,19 +17,19 @@ void main() {
   });
   group('Offset 10:', () {
     test('first', () {
-      final it = list.stride(stepSize, 10, false).iterator;
+      final it = list.fastStride(stepSize, 10).iterator;
       expect(it.moveNext(), true);
       expect(it.current, 10);
     });
     test('second', () {
-      final it = list.stride(stepSize, 10, false).iterator;
+      final it = list.fastStride(stepSize, 10).iterator;
       expect(it.moveNext(), true); // Current -> 10.
       expect(it.moveNext(), true); // Current -> 7.
       expect(it.current, 7);
     });
   });
   group('Offset 2:', () {
-    final iterable = list.stride(stepSize, 2, false);
+    final iterable = list.fastStride(stepSize, 2);
     test('first', () {
       final it = iterable.iterator;
       expect(it.moveNext(), true);
@@ -44,7 +44,7 @@ void main() {
   group('Concurrent modification:', () {
     final list = [0, 1, 2, 3, 4, 5];
     final stepSize = -2;
-    final it = list.stride(stepSize, 5, false);
+    final it = list.fastStride(stepSize, 5);
     test('removing element', () {
       for (var item in it) {
         if (item == 3) {

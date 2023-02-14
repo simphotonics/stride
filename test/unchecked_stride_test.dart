@@ -1,15 +1,14 @@
 import 'package:stride/stride.dart';
 import 'package:test/test.dart';
 
-/// Unit tests checking the extension method `stride` while unchecked mode is
-/// enabled.
+/// Unit tests checking the extension method `fastStride`.
 
 void main() {
   final list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   final stepSize = 3;
 
   group('Empty list:', () {
-    final it = <int>[].stride(stepSize, 0, false);
+    final it = <int>[].fastStride(stepSize, 0);
     test('isEmpty', () {
       expect(it.isEmpty, true);
     });
@@ -18,10 +17,9 @@ void main() {
     });
   });
   group('Offset zero:', () {
-    final it = list.stride(
+    final it = list.fastStride(
       stepSize,
       0,
-      false,
     );
     test('isEmpty', () {
       expect(it.isEmpty, false);
@@ -62,7 +60,7 @@ void main() {
     });
 
     test('followedBy', () {
-      final it2 = [100, 101, 102, 103, 104, 105].stride(2, 0, false);
+      final it2 = [100, 101, 102, 103, 104, 105].fastStride(2, 0);
       expect(it.followedBy(it2), [0, 3, 6, 9, 100, 102, 104]);
     });
     test('skip', () {
@@ -80,7 +78,7 @@ void main() {
     });
   });
   group('Offset 2:', () {
-    final it = list.stride(stepSize, 2, false);
+    final it = list.fastStride(stepSize, 2);
     test('isEmpty', () {
       expect(it.isEmpty, false);
     });
@@ -120,7 +118,7 @@ void main() {
     });
 
     test('followedBy', () {
-      final it2 = <int>[100, 101, 102, 103, 104, 105].stride(2, 1, false);
+      final it2 = <int>[100, 101, 102, 103, 104, 105].fastStride(2, 1);
       expect(it.followedBy(it2), [2, 5, 8, 101, 103, 105]);
     });
     test('skip', () {

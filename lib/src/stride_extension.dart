@@ -21,7 +21,7 @@ class _FastStrideIterable<E> extends Iterable<E> {
   _FastStrideIterable(List<E> fixedLengthList, this.stepSize,
       [int startIndex = 0])
       : _list = fixedLengthList,
-        this.startIndex = startIndex < 0 ? 0 : startIndex {
+        startIndex = startIndex < 0 ? 0 : startIndex {
     length = startIndex > fixedLengthList.length
         ? 0
         : ((fixedLengthList.length - startIndex) / stepSize).ceil();
@@ -37,6 +37,7 @@ class _FastStrideIterable<E> extends Iterable<E> {
   final int startIndex;
 
   /// The length of the iterable.
+  @override
   late final int length;
 
   @override
@@ -63,10 +64,10 @@ class _ReverseFastStrideIterable<E> extends Iterable<E> {
   _ReverseFastStrideIterable(List<E> fixedLengthList, this.stepSize,
       [int startIndex = 0])
       : _list = fixedLengthList,
-        this.startIndex = startIndex > fixedLengthList.length
+        startIndex = startIndex > fixedLengthList.length
             ? fixedLengthList.length - 1
             : startIndex {
-    if (_list.length == 0 || startIndex < 0) {
+    if (_list.isEmpty || startIndex < 0) {
       length = 0;
     } else {
       length = ((startIndex + 1) / stepSize.abs()).ceil();
@@ -83,6 +84,7 @@ class _ReverseFastStrideIterable<E> extends Iterable<E> {
   final int startIndex;
 
   /// The length of the iterable.
+  @override
   late final int length;
 
   @override
@@ -107,7 +109,7 @@ class _StrideIterable<E> extends Iterable<E> {
 
   _StrideIterable(Iterable<E> iterable, this.stepSize, [int startIndex = 0])
       : _iterable = iterable,
-        this.startIndex = startIndex < 0 ? 0 : startIndex {
+        startIndex = startIndex < 0 ? 0 : startIndex {
     length = startIndex > iterable.length
         ? 0
         : ((iterable.length - startIndex) / stepSize).ceil();
@@ -123,6 +125,7 @@ class _StrideIterable<E> extends Iterable<E> {
   final int startIndex;
 
   /// The length of the iterable.
+  @override
   late final int length;
 
   @override
@@ -141,7 +144,7 @@ class _StrideIterable<E> extends Iterable<E> {
   }
 }
 
-/// An `Iterable` backed by a *fixed* length list. The start
+/// A reverse `Iterable` with a customizable start
 /// index and the step size can be specified.
 class _ReverseStrideIterable<E> extends Iterable<E> {
   /// Constructs a object of type [_ReverseStrideIterable].
@@ -152,10 +155,10 @@ class _ReverseStrideIterable<E> extends Iterable<E> {
   _ReverseStrideIterable(Iterable<E> iterable, this.stepSize,
       [int startIndex = 0])
       : _iterable = iterable,
-        this.startIndex = startIndex > iterable.length - 1
+        startIndex = startIndex > iterable.length - 1
             ? iterable.length - 1
             : startIndex {
-    if (iterable.length == 0 || startIndex < 0) {
+    if (iterable.isEmpty || startIndex < 0) {
       length = 0;
     } else {
       length = ((startIndex + 1) / stepSize.abs()).ceil();
@@ -172,6 +175,7 @@ class _ReverseStrideIterable<E> extends Iterable<E> {
   final int startIndex;
 
   /// The length of the iterable.
+  @override
   late final int length;
 
   @override
@@ -204,32 +208,23 @@ extension Stride<E> on Iterable<E> {
   }
 }
 
-/// Extension on `List<E>` providing the method `stride`.
+/// Extension on `List<E>` providing the method `fastStride`.
+/// Note: The backing list should be immutable or fixed length since
+/// concurrent modification is not checked.
 extension FastStride<E> on List<E> {
   /// Returns an `Iterable<E>` which iterates `this` using a custom `stepSize`
   /// and starting from `startIndex`.
   /// * If `startIndex` is a valid list index then the
   /// first element of the iterable will be: `this[startIndex]`.
   /// * The parameter `stepSize` must not be zero.
-  /// * Checking for concurrent modification is enabled by default.
-  /// * Iterating fixed length lists can be sped up by setting the parameter
-  /// `checkConcurrentModification` to `false`.
-  Iterable<E> stride(
-    int stepSize, [
-    int startIndex = 0,
-    bool checkConcurrentModification = true,
-  ]) {
+  /// * This method does not check for concurrent modification.
+  /// * Should be used with fixed length or immutable lists.
+  Iterable<E> fastStride(int stepSize, [int startIndex = 0]) {
     if (stepSize == 0) {
       _throwError<E>();
     }
-    if (checkConcurrentModification) {
-      return stepSize > 0
-          ? _StrideIterable<E>(this, stepSize, startIndex)
-          : _ReverseStrideIterable(this, stepSize, startIndex);
-    } else {
-      return stepSize > 0
-          ? _FastStrideIterable<E>(this, stepSize, startIndex)
-          : _ReverseFastStrideIterable(this, stepSize, startIndex);
-    }
+    return stepSize > 0
+        ? _FastStrideIterable<E>(this, stepSize, startIndex)
+        : _ReverseFastStrideIterable(this, stepSize, startIndex);
   }
 }

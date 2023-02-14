@@ -2,13 +2,13 @@ import 'package:stride/stride.dart';
 import 'package:test/test.dart';
 
 /// Unit tests checking the extension method `stride` using a negative
-/// stride. Concurrent modification checks are disabled.
+/// stride. No concurrent modification checks are performed.
 void main() {
   final list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   final stepSize = -3;
 
   group('Empty list:', () {
-    final it = <int>[].stride(-3, 0, false);
+    final it = <int>[].fastStride(-3, 0);
     test('isEmpty', () {
       expect(it.isEmpty, true);
     });
@@ -17,7 +17,7 @@ void main() {
     });
   });
   group('Start index 0:', () {
-    final it = list.stride(stepSize, 0, false);
+    final it = list.fastStride(stepSize, 0);
     print(it);
     test('isEmpty', () {
       expect(it.isEmpty, false);
@@ -31,7 +31,7 @@ void main() {
   });
 
   group('Start index: 10', () {
-    final it = list.stride(stepSize, 10, false);
+    final it = list.fastStride(stepSize, 10);
     test('first', () {
       print(it);
       expect(it.first, 10);
@@ -63,7 +63,7 @@ void main() {
     });
 
     test('followedBy', () {
-      final it2 = <int>[100, 101, 102, 103, 104, 105].stride(2);
+      final it2 = <int>[100, 101, 102, 103, 104, 105].fastStride(2);
       expect(it.followedBy(it2), [10, 7, 4, 1, 100, 102, 104]);
     });
     test('skip', () {
@@ -81,7 +81,7 @@ void main() {
     });
   });
   group('Start Index 6:', () {
-    final it = list.stride(stepSize, 6, false);
+    final it = list.fastStride(stepSize, 6);
     test('isEmpty', () {
       expect(it.isEmpty, false);
     });

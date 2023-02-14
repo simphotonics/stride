@@ -18,8 +18,8 @@ final list = List<double>.generate(
   growable: true,
 );
 final typedList = Float64List.fromList(list);
-final typedListIt = typedList.stride(stepSize, startIndex, false);
-final listFastIt = list.stride(stepSize, startIndex, false);
+final typedListIt = typedList.fastStride(stepSize, startIndex);
+final listFastIt = list.fastStride(stepSize, startIndex);
 final listIt = list.stride(stepSize, startIndex);
 
 var tmp = 0.0;
@@ -32,21 +32,21 @@ void main() {
       var column_4 = [
         for (var i = 0; i < array2d.length; i++) tmp = array2d[i][startIndex]
       ];
-    }, duration: Duration(milliseconds: 6000));
+    }, duration: Duration(milliseconds: 1000));
     benchmark('list iterator checked', () {
       for (var element in listIt) {
         tmp = element;
       }
-    }, duration: Duration(milliseconds: 6000));
+    }, duration: Duration(milliseconds: 1000));
     benchmark('list iterator', () {
       for (var element in listFastIt) {
         tmp = element;
       }
-    }, duration: Duration(milliseconds: 6000));
+    }, duration: Duration(milliseconds: 1000));
     benchmark('typed list iterator', () {
       for (var element in typedListIt) {
         tmp = element;
       }
-    }, duration: Duration(milliseconds: 6000));
+    }, duration: Duration(milliseconds: 1000));
   });
 }

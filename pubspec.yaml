@@ -1,6 +1,6 @@
 name: stride
 
-description: Extension methods for iterating Dart Lists and Iterables using a
+description: Enables iterating Dart Lists and Iterables using a
   custom start index and step size (stride).
 
 version: 1.0.0

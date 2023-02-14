@@ -18,10 +18,10 @@ echo -e "${BLUE}=== Resolving dependencies $PWD...${RESET}"
 echo
 
 # Make sure .dart_tool/package_config.json exists.
-pub get
+dart pub get
 
 # Upgrade packages.
-pub upgrade
+dart pub upgrade
 
 echo
 echo -e "${PURPLE}=== Checking Source Code Formatting${RESET} $PWD..."
@@ -37,7 +37,7 @@ echo
 
 dart analyze \
     --fatal-warnings \
-    --fatal-infos 
+    --fatal-infos
 
 # Running tests
 echo

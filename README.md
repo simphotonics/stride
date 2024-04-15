@@ -3,12 +3,17 @@
 
 ## Introduction
 
+The package [stride][stride] provides **stride iterators** and extension
+methods that make it possible to iterate data structures of type `List` and
+`Iterable` using a custom start point and step size.
+
 In the context of numerical computation it is often useful to store data
 in multi-dimensional arrays. In Dart, a multi-dimensional array may be
 represented as a list of lists.
 To speed up arithmetical operations and minimize memory usage it may be advantageous to
-store a multi-dimensional array as a flat list
-(see [Numerical computation](https://dart.dev/articles/archive/numeric-computation)).
+store a multi-dimensional array as a flat list. For more details see
+[numerical computation](https://dart.dev/articles/archive/numeric-computation)
+with Dart.
 
 The example below shows how the elements of a 2-dimensional array can
 be stored as a 1-dimensional array (a Dart list).
@@ -21,9 +26,6 @@ need to start the iteration at index 1. To move to the next element
 we have to use a step size, or stride, that is equal to the number of columns in the
 2D-array.
 
-The package [stride][stride] provides **stride iterators** and extension
-methods that make it possible to iterate data structures of type `List` and
-`Iterable` using a custom start point and step size.
 
 ## Usage
 

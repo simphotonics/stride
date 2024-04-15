@@ -1,7 +1,7 @@
 import 'package:exception_templates/exception_templates.dart';
 
 import 'stride_iterator.dart';
-import 'unchecked_stride_iterator.dart';
+import 'reverse_stride_iterator.dart';
 
 void _throwError<E>() {
   throw ErrorOf<Iterable<E>>(
@@ -10,25 +10,22 @@ void _throwError<E>() {
       expectedState: 'Parameter <stepSize> must not be zero.');
 }
 
-/// An `Iterable` backed by a *fixed* length list. The start
-/// index and the step size can be specified.
-class _FastStrideIterable<E> extends Iterable<E> {
+class _FastStrideIterable<E> with Iterable<E> {
   /// Constructs a object of type [_FastStrideIterable].
-  /// * [fixedLengthList]: A list with fixed length and entries of type `E`.
+  /// * [_iterable]: An iterable with entries of type `E`.
   /// * [stepSize]: The iteration stride (step size). Must be larger than 0.
-  /// * [startIndex]: If [startIndex] is a valid list index the
-  /// first element of `this` will be: `fixedLengthList[startIndex]`.
-  _FastStrideIterable(List<E> fixedLengthList, this.stepSize,
-      [int startIndex = 0])
-      : _list = fixedLengthList,
+  /// * [startIndex]: If [startIndex] is a valid index the
+  /// first element of `this` will be: `elementAt.(startIndex)`.
+  _FastStrideIterable(Iterable<E> iterable, this.stepSize, [int startIndex = 0])
+      : _iterable = iterable,
         startIndex = startIndex < 0 ? 0 : startIndex {
-    length = startIndex > fixedLengthList.length
+    length = startIndex > iterable.length
         ? 0
-        : ((fixedLengthList.length - startIndex) / stepSize).ceil();
+        : ((iterable.length - startIndex) / stepSize).ceil();
   }
 
-  /// The list that is iterated.
-  final List<E> _list;
+  /// The iterable that is being iterated.
+  final Iterable<E> _iterable;
 
   /// The stride used to iterate elements.
   final int stepSize;
@@ -42,40 +39,37 @@ class _FastStrideIterable<E> extends Iterable<E> {
 
   @override
   UncheckedStrideIterator<E> get iterator =>
-      UncheckedStrideIterator<E>(_list, stepSize, startIndex);
+      UncheckedStrideIterator<E>(_iterable, stepSize, startIndex);
 
   @override
   E elementAt(int index) {
     if (index < 0 || index >= length) {
       throw RangeError.range(index, 0, length - 1);
     }
-    return _list[startIndex + index * stepSize];
+    return _iterable.elementAt(startIndex + index * stepSize);
   }
 }
 
-/// An `Iterable` backed by a *fixed* length list. The start
-/// index and the step size can be specified.
-class _ReverseFastStrideIterable<E> extends Iterable<E> {
+class _ReverseFastStrideIterable<E> with Iterable<E> {
   /// Constructs a object of type [_FastStrideIterable].
-  /// * [fixedLengthList]: A list with fixed length and entries of type `E`.
+  /// * [iterable]: An iterable with entries of type `E`.
   /// * [stepSize]: The iteration stride (step size). Must be smaller than 0.
-  /// * [startIndex]: If [startIndex] is a valid list index the
-  /// first element of `this` will be: `fixedLengthList[startIndex]`.
-  _ReverseFastStrideIterable(List<E> fixedLengthList, this.stepSize,
+  /// * [startIndex]: If [startIndex] is a valid index the
+  /// first element of `this` will be: `this.elementAt(startIndex)`.
+  _ReverseFastStrideIterable(Iterable<E> iterable, this.stepSize,
       [int startIndex = 0])
-      : _list = fixedLengthList,
-        startIndex = startIndex > fixedLengthList.length
-            ? fixedLengthList.length - 1
-            : startIndex {
-    if (_list.isEmpty || startIndex < 0) {
+      : _iterable = iterable,
+        startIndex =
+            startIndex > iterable.length ? iterable.length - 1 : startIndex {
+    if (_iterable.isEmpty || startIndex < 0) {
       length = 0;
     } else {
       length = ((startIndex + 1) / stepSize.abs()).ceil();
     }
   }
 
-  /// The list that is iterated.
-  final List<E> _list;
+  /// The iterable that is being iterated.
+  final Iterable<E> _iterable;
 
   /// The stride used to iterate elements.
   final int stepSize;
@@ -89,19 +83,19 @@ class _ReverseFastStrideIterable<E> extends Iterable<E> {
 
   @override
   ReverseUncheckedStrideIterator<E> get iterator =>
-      ReverseUncheckedStrideIterator<E>(_list, stepSize, startIndex);
+      ReverseUncheckedStrideIterator<E>(_iterable, stepSize, startIndex);
 
   @override
   E elementAt(int index) {
     if (index < 0 || index >= length) {
       throw RangeError.range(index, 0, length - 1);
     }
-    return _list[startIndex + index * stepSize];
+    return _iterable.elementAt(startIndex + index * stepSize);
   }
 }
 
-/// An `Iterable` with a customizable stride and offset.
-class _StrideIterable<E> extends Iterable<E> {
+/// An `Iterable` with a customizable stride and startIndex.
+class _StrideIterable<E> with Iterable<E> {
   /// Constructs a object of type [_StrideIterable].
   /// * `iterable`: An iterable with entries of type `E`.
   /// * `stepSize`: The iteration stride (step size). Must be larger than 0.
@@ -133,7 +127,7 @@ class _StrideIterable<E> extends Iterable<E> {
 
   @override
   StrideIterator<E> get iterator =>
-      StrideIterator<E>(_iterable, stepSize, startIndex);
+      CheckedStrideIterator<E>(_iterable, stepSize, startIndex);
 
   @override
   E elementAt(int index) {
@@ -145,13 +139,13 @@ class _StrideIterable<E> extends Iterable<E> {
 }
 
 /// A reverse `Iterable` with a customizable start
-/// index and the step size can be specified.
-class _ReverseStrideIterable<E> extends Iterable<E> {
+/// index and step size.
+class _ReverseStrideIterable<E> with Iterable<E> {
   /// Constructs a object of type [_ReverseStrideIterable].
-  /// * [fixedLengthList]: A list with fixed length and entries of type `E`.
+  /// * [iterable]: An iterable with entries of type `E`.
   /// * [stepSize]: The iteration stride (step size). Must be smaller than 0.
-  /// * [startIndex]: If [startIndex] is a valid list index the
-  /// first element of `this` will be: `fixedLengthList[startIndex]`.
+  /// * [startIndex]: If [startIndex] is a valid index the
+  /// first element of `this` will be: `this.elementAt(startIndex)`.
   _ReverseStrideIterable(Iterable<E> iterable, this.stepSize,
       [int startIndex = 0])
       : _iterable = iterable,
@@ -165,7 +159,7 @@ class _ReverseStrideIterable<E> extends Iterable<E> {
     }
   }
 
-  /// The list that is being iterated.
+  /// The iterable that is being iterated.
   final Iterable<E> _iterable;
 
   /// The stride used to iterate elements.
@@ -180,7 +174,7 @@ class _ReverseStrideIterable<E> extends Iterable<E> {
 
   @override
   ReverseStrideIterator<E> get iterator =>
-      ReverseStrideIterator<E>(_iterable, stepSize, startIndex);
+      CheckedReverseStrideIterator<E>(_iterable, stepSize, startIndex);
 
   @override
   E elementAt(int index) {
@@ -195,7 +189,7 @@ class _ReverseStrideIterable<E> extends Iterable<E> {
 extension Stride<E> on Iterable<E> {
   /// Returns an `Iterable<E>` which iterates `this` using a custom `stepSize`
   /// and starting from `startIndex`.
-  /// * If `startIndex` is a valid list index then the
+  /// * If `startIndex` is a valid index then the
   /// first element of the iterable will be: `this.elementAt(startIndex)`.
   /// * The parameter `stepSize` must not be zero.
   Iterable<E> stride(int stepSize, [int startIndex = 0]) {
@@ -208,17 +202,17 @@ extension Stride<E> on Iterable<E> {
   }
 }
 
-/// Extension on `List<E>` providing the method `fastStride`.
-/// Note: The backing list should be immutable or fixed length since
+/// Extension providing the method `fastStride`.
+/// Note: The backing iterable should be immutable or fixed length since
 /// concurrent modification is not checked.
-extension FastStride<E> on List<E> {
+extension FastStride<E> on Iterable<E> {
   /// Returns an `Iterable<E>` which iterates `this` using a custom `stepSize`
   /// and starting from `startIndex`.
-  /// * If `startIndex` is a valid list index then the
-  /// first element of the iterable will be: `this[startIndex]`.
+  /// * If `startIndex` is a valid index then the
+  /// first element of the iterable will be: `elementAt(startIndex)`.
   /// * The parameter `stepSize` must not be zero.
   /// * This method does not check for concurrent modification.
-  /// * Should be used with fixed length or immutable lists.
+  /// * Should be used with fixed length or immutable iterables.
   Iterable<E> fastStride(int stepSize, [int startIndex = 0]) {
     if (stepSize == 0) {
       _throwError<E>();

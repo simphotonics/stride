@@ -8,16 +8,14 @@ methods that make it possible to iterate data structures of type `List` and
 `Iterable` using a custom start point and step size. For negative step sizes
 a reverse iterator is used.
 
-## Multi-Dimensional Arrays Represented as a List
+## Multi-Dimensional Arrays
 
-In the context of numerical computation it is often useful to store data
-in multi-dimensional arrays. In Dart, a multi-dimensional array may be
+In Dart, a multi-dimensional array can be
 represented as a list of lists.
-To speed up arithmetical operations and minimize memory usage it may be advantageous to
-store a multi-dimensional array as a flat list. For more details see
+However, in the context of
 [numerical computation](https://dart.dev/articles/archive/numeric-computation)
-with Dart and the section on [storage layout](#storage-layout) below.
-
+it is often useful to store multi-dimensional arrays as a flat list
+to speed up arithmetical operations and minimize memory usage.
 The example below shows how the elements of a 2-dimensional array can
 be stored as a 1-dimensional array (a Dart list).
 
@@ -27,7 +25,8 @@ In order to access the elements of the column with index 1
 (highlighted using a grey rectangle), we
 need to start the iteration at index 1. To move to the next element
 we have to use a step size, or **stride**, that is equal to the
-number of columns in the 2D-array.
+number of columns in the 2D-array. For more
+info, see the section on [storage layout](#storage-layout) below.
 
 
 ## Usage
@@ -122,12 +121,16 @@ start index: 9 and step-size: -3:
 
 ## Storage Layout
 
-Consider an N-dimensional array, array_N, with length d<sub>i</sub> along dimension i,
-where i &in; \[0, n-1\]. Let array_1 be a Dart list able to store all d<sub>0</sub> &middot; d<sub>1</sub> &middot; &hellip; &middot; d<sub>n-1</sub> elements of array_N.
+Let **A** be an n-dimensional array with length d<sub>i</sub> along dimension i,
+where i &in; \[0, n-1\].
 
-Let array_N\[i<sub>0</sub>\]\[i<sub>1</sub>\]&hellip;\[i<sub>n&#x2011;1</sub>\] be stored at location array_1\[s<sub>0</sub>&middot;i<sub>0</sub>&nbsp;+&nbsp;&hellip;&nbsp;+&nbsp;s<sub>n-1</sub>&middot;i<sub>n-1</sub>\], where the iteration step sizes, s<sub>i</sub>, depend on the storage order.
+Let **L** be a Dart list containing all the elements of **A**. Then the length of **L** will be d<sub>0</sub> &times; d<sub>1</sub> &times; &hellip; &times; d<sub>n-1</sub> .
 
-### Row Major
+Let the element **A**\[ i<sub>0</sub> \]\[ i<sub>1</sub> \]&hellip;\[ i<sub>n&#x2011;1</sub> \] be stored at location **L**\[s<sub>0</sub>&times;i<sub>0</sub>&nbsp;+&nbsp;&hellip;&nbsp;+&nbsp;s<sub>n-1</sub>&times;i<sub>n-1</sub>\].
+Then the iteration step sizes, s<sub>i</sub> depend on the storage order
+as shown below. 
+
+### Row Major Layout
 
 For a *row major* storage order the step sizes are given by:
 
@@ -142,7 +145,7 @@ s<sub>n-2</sub> = d<sub>n-1</sub>
 s<sub>n-1</sub> = 1.
 
 
-### Column Major
+### Column Major Layout
 For a *column major* storage order the step sizes are given by:
 
 s<sub>0</sub> = 1

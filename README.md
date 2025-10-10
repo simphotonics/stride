@@ -6,7 +6,7 @@
 The package [stride][stride] provides **stride iterators** and extension
 methods that make it possible to iterate data structures of type `List` and
 `Iterable` using a custom start point and step size. For negative step sizes
-a reverse iterator is used. 
+a reverse iterator is used.
 
 ## Multi-Dimensional Arrays Represented as a List
 
@@ -16,7 +16,7 @@ represented as a list of lists.
 To speed up arithmetical operations and minimize memory usage it may be advantageous to
 store a multi-dimensional array as a flat list. For more details see
 [numerical computation](https://dart.dev/articles/archive/numeric-computation)
-with Dart.
+with Dart and the section on (storage layout)[#storage-layout] below.
 
 The example below shows how the elements of a 2-dimensional array can
 be stored as a 1-dimensional array (a Dart list).
@@ -120,12 +120,14 @@ start index: 9 and step-size: -3:
 (9.0, 6.0, 3.0, 0.0)
 ```
 
-## Row Major and Column Major Storage Layout
+## Storage Layout
 
 Consider an N-dimensional array, array_N, with length d<sub>i</sub> along dimension i,
 where i &in; \[0, n-1\]. Let array_1 be a Dart list able to store all d<sub>0</sub> &middot; d<sub>1</sub> &middot; &hellip; &middot; d<sub>n-1</sub> elements of array_N.
 
 Let array_N\[i<sub>0</sub>\]\[i<sub>1</sub>\]&hellip;\[i<sub>n&#x2011;1</sub>\] be stored at location array_1\[s<sub>0</sub>&middot;i<sub>0</sub>&nbsp;+&nbsp;&hellip;&nbsp;+&nbsp;s<sub>n-1</sub>&middot;i<sub>n-1</sub>\], where the iteration step sizes, s<sub>i</sub>, depend on the storage order.
+
+### Row Major
 
 For a *row major* storage order the step sizes are given by:
 
@@ -140,7 +142,7 @@ s<sub>n-2</sub> = d<sub>n-1</sub>
 s<sub>n-1</sub> = 1.
 
 
-
+### Column Major
 For a *column major* storage order the step sizes are given by:
 
 s<sub>0</sub> = 1

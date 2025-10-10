@@ -16,7 +16,7 @@ represented as a list of lists.
 To speed up arithmetical operations and minimize memory usage it may be advantageous to
 store a multi-dimensional array as a flat list. For more details see
 [numerical computation](https://dart.dev/articles/archive/numeric-computation)
-with Dart and the section on (storage layout)[#storage-layout] below.
+with Dart and the section on [storage layout](#storage-layout) below.
 
 The example below shows how the elements of a 2-dimensional array can
 be stored as a 1-dimensional array (a Dart list).

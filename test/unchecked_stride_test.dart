@@ -17,10 +17,7 @@ void main() {
     });
   });
   group('Offset zero:', () {
-    final it = list.fastStride(
-      stepSize,
-      0,
-    );
+    final it = list.fastStride(stepSize, 0);
     test('isEmpty', () {
       expect(it.isEmpty, false);
     });
@@ -48,11 +45,11 @@ void main() {
 
     test('expand', () {
       expect(
-          it.expand<double>((element) => [
-                element.toDouble(),
-                element.toDouble() + 1,
-              ]),
-          [0.0, 1.0, 3.0, 4.0, 6.0, 7.0, 9.0, 10.0]);
+        it.expand<double>(
+          (element) => [element.toDouble(), element.toDouble() + 1],
+        ),
+        [0.0, 1.0, 3.0, 4.0, 6.0, 7.0, 9.0, 10.0],
+      );
     });
 
     test('fold', () {
@@ -106,11 +103,11 @@ void main() {
 
     test('expand', () {
       expect(
-          it.expand<double>((element) => [
-                element.toDouble(),
-                element.toDouble() + 1,
-              ]),
-          [2.0, 3.0, 5.0, 6.0, 8.0, 9.0]);
+        it.expand<double>(
+          (element) => [element.toDouble(), element.toDouble() + 1],
+        ),
+        [2.0, 3.0, 5.0, 6.0, 8.0, 9.0],
+      );
     });
 
     test('fold', () {

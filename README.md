@@ -5,7 +5,10 @@
 
 The package [stride][stride] provides **stride iterators** and extension
 methods that make it possible to iterate data structures of type `List` and
-`Iterable` using a custom start point and step size.
+`Iterable` using a custom start point and step size. For negative step sizes
+a reverse iterator is used. 
+
+## Multi-Dimensional Arrays Represented as a List
 
 In the context of numerical computation it is often useful to store data
 in multi-dimensional arrays. In Dart, a multi-dimensional array may be
@@ -21,10 +24,10 @@ be stored as a 1-dimensional array (a Dart list).
 ![2D-Array](https://github.com/simphotonics/stride/raw/main/images/array.svg?sanitize=true)
 
 In order to access the elements of the column with index 1
-(highlighted using an orange rectangle), we
+(highlighted using a grey rectangle), we
 need to start the iteration at index 1. To move to the next element
-we have to use a step size, or stride, that is equal to the number of columns in the
-2D-array.
+we have to use a step size, or **stride**, that is equal to the
+number of columns in the 2D-array.
 
 
 ## Usage

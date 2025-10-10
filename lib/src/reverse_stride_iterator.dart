@@ -10,11 +10,13 @@ abstract class ReverseStrideIterator<E> implements Iterator<E> {
   /// * [startIndex]: If [startIndex] is a valid list index
   /// then the first element returned by the getter [current] (after initially
   /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
-  ReverseStrideIterator(Iterable<E> iterable, int stepSize,
-      [int startIndex = 0])
-      : _iterable = iterable,
-        stepSize = stepSize >= 0 ? -1 : stepSize,
-        _length = iterable.length {
+  ReverseStrideIterator(
+    Iterable<E> iterable,
+    int stepSize, [
+    int startIndex = 0,
+  ]) : _iterable = iterable,
+       stepSize = stepSize >= 0 ? -1 : stepSize,
+       _length = iterable.length {
     _position = startIndex > _length - 1
         ? _length - 1 - this.stepSize
         : startIndex - this.stepSize;
@@ -54,8 +56,11 @@ class CheckedReverseStrideIterator<E> extends ReverseStrideIterator<E> {
   /// * [startIndex]: If [startIndex] is a valid list index
   /// then the first element returned by the getter [current] (after initially
   /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
-  CheckedReverseStrideIterator(super.iterable, super.stepSize,
-      [super.startIndex = 0]);
+  CheckedReverseStrideIterator(
+    super.iterable,
+    super.stepSize, [
+    super.startIndex = 0,
+  ]);
 
   @override
   bool moveNext() {
@@ -86,8 +91,11 @@ class ReverseUncheckedStrideIterator<E> extends ReverseStrideIterator<E> {
   /// * [startIndex]: If [startIndex] is a valid list index
   /// then the first element returned by the getter [current] (after initially
   /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
-  ReverseUncheckedStrideIterator(super.iterable, super.stepSize,
-      [super.startIndex = 0]);
+  ReverseUncheckedStrideIterator(
+    super.iterable,
+    super.stepSize, [
+    super.startIndex = 0,
+  ]);
 
   @override
   bool moveNext() {

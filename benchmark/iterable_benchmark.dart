@@ -4,8 +4,8 @@ import 'package:benchmark_runner/benchmark_runner.dart';
 import 'package:stride/stride.dart';
 
 void main() {
-  final nRows = 1000000;
-  final nCols = 10;
+  final nRows = 10000;
+  final nCols = 10000;
   final stepSize = nCols;
   final startIndex = 4;
 

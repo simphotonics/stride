@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:stride/stride.dart';
 
-main(List<String> args) {
+void main(List<String> args) {
   // 3x3 matrix.
   final array2D = <List<String>>[
     ['e00', 'e01', 'e02'],

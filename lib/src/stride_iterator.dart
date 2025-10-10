@@ -11,10 +11,10 @@ abstract class StrideIterator<E> implements Iterator<E> {
   /// then the first element returned by the getter `current` (after initially
   /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
   StrideIterator(Iterable<E> iterable, int stepSize, [int startIndex = 0])
-      : _iterable = iterable,
-        stepSize = stepSize <= 0 ? 1 : stepSize,
-        _length = iterable.length,
-        _position = startIndex < 0 ? -stepSize : startIndex - stepSize;
+    : _iterable = iterable,
+      stepSize = stepSize <= 0 ? 1 : stepSize,
+      _length = iterable.length,
+      _position = startIndex < 0 ? -stepSize : startIndex - stepSize;
 
   /// The iterable being iterated.
   final Iterable<E> _iterable;
@@ -47,11 +47,7 @@ class CheckedStrideIterator<E> extends StrideIterator<E> {
   /// * `startIndex`: If `startIndex` is a valid index
   /// then the first element returned by the getter [current] (after initially
   /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
-  CheckedStrideIterator(
-    super.iterable,
-    super.stepSize, [
-    super.startIndex = 0,
-  ]);
+  CheckedStrideIterator(super.iterable, super.stepSize, [super.startIndex = 0]);
 
   @override
   bool moveNext() {

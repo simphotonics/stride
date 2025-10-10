@@ -3,7 +3,7 @@ name: stride
 description: Enables iterating Dart lists and iterables using a custom start
   index and step size (stride).
 
-version: 1.1.0
+version: 1.1.1
 
 homepage: https://github.com/simphotonics/stride
 
@@ -15,12 +15,12 @@ topics:
   - column-major
 
 environment:
-  sdk: '^3.0.0'
+  sdk: '^3.8.0'
 
 dependencies:
   exception_templates: ^0.3.1
-  
+
 dev_dependencies:
-  benchmark_runner: ^0.1.4
-  lints: ^3.0.0
-  test: ^1.25.3
+  benchmark_runner: ^2.0.1
+  lints: ^6.0.0
+  test: ^1.26.3

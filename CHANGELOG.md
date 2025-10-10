@@ -1,5 +1,7 @@
 
-
+## 1.1.1
+- Updated dependencies.
+- Amended docs.
 
 ## 1.1.0
 - Amended section Introduction.

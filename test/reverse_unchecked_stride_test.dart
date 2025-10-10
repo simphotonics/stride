@@ -51,11 +51,11 @@ void main() {
 
     test('expand', () {
       expect(
-          it.expand<double>((element) => [
-                element.toDouble(),
-                element.toDouble() + 1,
-              ]),
-          [10.0, 11.0, 7.0, 8.0, 4.0, 5.0, 1.0, 2.0]);
+        it.expand<double>(
+          (element) => [element.toDouble(), element.toDouble() + 1],
+        ),
+        [10.0, 11.0, 7.0, 8.0, 4.0, 5.0, 1.0, 2.0],
+      );
     });
 
     test('fold', () {

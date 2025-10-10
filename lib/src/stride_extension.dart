@@ -5,9 +5,10 @@ import 'reverse_stride_iterator.dart';
 
 void _throwError<E>() {
   throw ErrorOf<Iterable<E>>(
-      message: 'Error in method <stride>.',
-      invalidState: 'Found: stepSize = 0.',
-      expectedState: 'Parameter <stepSize> must not be zero.');
+    message: 'Error in method <stride>.',
+    invalidState: 'Found: stepSize = 0.',
+    expectedState: 'Parameter <stepSize> must not be zero.',
+  );
 }
 
 class _FastStrideIterable<E> with Iterable<E> {
@@ -17,8 +18,8 @@ class _FastStrideIterable<E> with Iterable<E> {
   /// * [startIndex]: If [startIndex] is a valid index the
   /// first element of `this` will be: `elementAt.(startIndex)`.
   _FastStrideIterable(Iterable<E> iterable, this.stepSize, [int startIndex = 0])
-      : _iterable = iterable,
-        startIndex = startIndex < 0 ? 0 : startIndex {
+    : _iterable = iterable,
+      startIndex = startIndex < 0 ? 0 : startIndex {
     length = startIndex > iterable.length
         ? 0
         : ((iterable.length - startIndex) / stepSize).ceil();
@@ -56,11 +57,14 @@ class _ReverseFastStrideIterable<E> with Iterable<E> {
   /// * [stepSize]: The iteration stride (step size). Must be smaller than 0.
   /// * [startIndex]: If [startIndex] is a valid index the
   /// first element of `this` will be: `this.elementAt(startIndex)`.
-  _ReverseFastStrideIterable(Iterable<E> iterable, this.stepSize,
-      [int startIndex = 0])
-      : _iterable = iterable,
-        startIndex =
-            startIndex > iterable.length ? iterable.length - 1 : startIndex {
+  _ReverseFastStrideIterable(
+    Iterable<E> iterable,
+    this.stepSize, [
+    int startIndex = 0,
+  ]) : _iterable = iterable,
+       startIndex = startIndex > iterable.length
+           ? iterable.length - 1
+           : startIndex {
     if (_iterable.isEmpty || startIndex < 0) {
       length = 0;
     } else {
@@ -102,8 +106,8 @@ class _StrideIterable<E> with Iterable<E> {
   /// * `startIndex`:
 
   _StrideIterable(Iterable<E> iterable, this.stepSize, [int startIndex = 0])
-      : _iterable = iterable,
-        startIndex = startIndex < 0 ? 0 : startIndex {
+    : _iterable = iterable,
+      startIndex = startIndex < 0 ? 0 : startIndex {
     length = startIndex > iterable.length
         ? 0
         : ((iterable.length - startIndex) / stepSize).ceil();
@@ -146,12 +150,14 @@ class _ReverseStrideIterable<E> with Iterable<E> {
   /// * [stepSize]: The iteration stride (step size). Must be smaller than 0.
   /// * [startIndex]: If [startIndex] is a valid index the
   /// first element of `this` will be: `this.elementAt(startIndex)`.
-  _ReverseStrideIterable(Iterable<E> iterable, this.stepSize,
-      [int startIndex = 0])
-      : _iterable = iterable,
-        startIndex = startIndex > iterable.length - 1
-            ? iterable.length - 1
-            : startIndex {
+  _ReverseStrideIterable(
+    Iterable<E> iterable,
+    this.stepSize, [
+    int startIndex = 0,
+  ]) : _iterable = iterable,
+       startIndex = startIndex > iterable.length - 1
+           ? iterable.length - 1
+           : startIndex {
     if (iterable.isEmpty || startIndex < 0) {
       length = 0;
     } else {

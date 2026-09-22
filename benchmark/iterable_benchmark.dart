@@ -9,10 +9,6 @@ void main() {
   final stepSize = nCols;
   final startIndex = 4;
 
-// final array2d = List<List<double>>.generate(
-//   nRows,
-//   (i) => List<double>.generate(nCols, (j) => (nCols * i + j).toDouble()),
-// );
   final list = List<double>.generate(
     nRows * nCols,
     (i) => i.toDouble(),

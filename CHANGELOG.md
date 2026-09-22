@@ -1,4 +1,9 @@
 
+## 1.2.0
+- Updated dependencies.
+- Require Dart SDK version ^3.13.0.
+- Uses primary constructor syntax.
+
 ## 1.1.1
 - Updated dependencies.
 - Amended docs.

@@ -28,13 +28,21 @@ void main(List<String> args) {
   print('');
 
   // Typed list (with fixed length).
-  final numericalList =
-      Float64List.fromList([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  final numericalList = Float64List.fromList([
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+  ]);
 
-  final strideIt1 = numericalList.stride(
-    stepSize,
-    startIndex,
-  );
+  final strideIt1 = numericalList.stride(stepSize, startIndex);
 
   print('Numerical list:');
   print(numericalList);

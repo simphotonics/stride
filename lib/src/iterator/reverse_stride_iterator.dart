@@ -3,29 +3,25 @@
 ///
 /// Concurrent modification is checked
 /// prior to advancing the iterator.
-abstract class ReverseStrideIterator<E> implements Iterator<E> {
+abstract class ReverseStrideIterator<E>(
+  /// The iterable being iterated.
+  final Iterable<E> _iterable,
+  int stepSize, [
+  int startIndex = 0,
+]) implements Iterator<E> {
   /// Constructs an object of type [ReverseStrideIterator].
   /// * [iterable]: An iterable with entries of type `E`.
   /// * [stepSize]: The iteration stride (step size). Must be smaller than zero.
   /// * [startIndex]: If [startIndex] is a valid list index
   /// then the first element returned by the getter [current] (after initially
   /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
-  ReverseStrideIterator(
-    Iterable<E> iterable,
-    int stepSize, [
-    int startIndex = 0,
-  ]) : _iterable = iterable,
-       stepSize = stepSize >= 0 ? -1 : stepSize,
-       _length = iterable.length {
+  this : stepSize = stepSize >= 0 ? -1 : stepSize, _length = _iterable.length {
     _position = startIndex > _length - 1
         ? _length - 1 - this.stepSize
         : startIndex - this.stepSize;
   }
 
-  /// The iterable being iterated.
-  final Iterable<E> _iterable;
-
-  /// The length of `_iterable`.
+  /// The length of [_iterable].
   final int _length;
 
   /// The current position.
@@ -47,21 +43,13 @@ abstract class ReverseStrideIterator<E> implements Iterator<E> {
 /// Iterates an [Iterable] using a negative non-zero step size and
 /// a custom start index.
 ///
-/// Concurrent modification is *not* checked
+/// Concurrent modification is checked
 /// prior to advancing the iterator.
-class CheckedReverseStrideIterator<E> extends ReverseStrideIterator<E> {
-  /// Constructs an object of type [ReverseUncheckedStrideIterator].
-  /// * [iterable]: An iterable with entries of type `E`.
-  /// * [stepSize]: The iteration stride (step size). Must be smaller than zero.
-  /// * [startIndex]: If [startIndex] is a valid list index
-  /// then the first element returned by the getter [current] (after initially
-  /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
-  CheckedReverseStrideIterator(
-    super.iterable,
-    super.stepSize, [
-    super.startIndex = 0,
-  ]);
-
+class CheckedReverseStrideIterator<E>(
+  super.iterable,
+  super.stepSize, [
+  super.startIndex = 0,
+]) extends ReverseStrideIterator<E> {
   @override
   bool moveNext() {
     _position += stepSize;
@@ -84,19 +72,11 @@ class CheckedReverseStrideIterator<E> extends ReverseStrideIterator<E> {
 ///
 /// Concurrent modification is *not* checked
 /// prior to advancing the iterator.
-class ReverseUncheckedStrideIterator<E> extends ReverseStrideIterator<E> {
-  /// Constructs an object of type [ReverseUncheckedStrideIterator].
-  /// * [iterable]: An iterable with entries of type `E`.
-  /// * [stepSize]: The iteration stride (step size). Must be smaller than zero.
-  /// * [startIndex]: If [startIndex] is a valid list index
-  /// then the first element returned by the getter [current] (after initially
-  /// advancing the iterator) will be: `iterable.elementAt(startIndex)`.
-  ReverseUncheckedStrideIterator(
-    super.iterable,
-    super.stepSize, [
-    super.startIndex = 0,
-  ]);
-
+class ReverseUncheckedStrideIterator<E>(
+  super.iterable,
+  super.stepSize, [
+  super.startIndex = 0,
+]) extends ReverseStrideIterator<E> {
   @override
   bool moveNext() {
     _position += stepSize;

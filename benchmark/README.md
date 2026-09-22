@@ -51,22 +51,25 @@ To run the benchmarks, navigate to the package root in your local copy of
 [`stride`][stride] and
 use the command:
 ```Perl
-$ dart run benchmark_runner
-Finding benchmark files...
-  benchmark/iterable_benchmark.dart
+$ dart run benchmark_runner report
 
-Progress timer: [05s:000ms]
+Locating benchmark files ...
+./benchmark/iterable_benchmark.dart
 
-Running: dart --define=isBenchmarkProcess=true benchmark/iterable_benchmark.dart
-  [02s:438ms:812us] column4: list iterator checked; mean: 75.00 ± 28.57 ms, median: 63.38 ± 39.73 ms
-                     ▉▅▂_ sample size: 24
+$ dart ./benchmark/iterable_benchmark.dart
+  [589ms:046us] column4: list iterator checked
+    mean: 4.018 ± 3.92 ms, median: 3.60 ± 1.53 ms
+    ▉▉█▉▂_▂▁______  37  _____
+    sample size: 94
 
-  [02s:040ms:543us] column4: list iterator unchecked; mean: 65.41 ± 21.31 ms, median: 57.68 ± 24.16 ms
-                     ▉▄▂__ sample size: 21
+  [539ms:556us] column4: list iterator unchecked
+    mean: 3.83 ± 1.31 ms, median: 4.031 ± 1.38 ms
+    ▁▉▁▉________
+    sample size: 88
 
 
 -------      Summary     --------
-Total run time: [05s:751ms]
+Total run time: [12s:942ms]
 Completed benchmarks: 2.
 Completed successfully.
 Exiting with code: 0.
